@@ -16,6 +16,7 @@ The intended result is a reproducible comparison of complete attack oracles and 
 
 - [Research plan and model](docs/research-plan.md)
 - [Annotated paper references and reading order](docs/reference.md)
+- [Papers we have read (issue #1)](https://github.com/isomoes/q1-grover-oracle/issues/1)
 - [BibTeX bibliography](docs/references.bib)
 - [Experiment record template](experiments/template.md)
 
