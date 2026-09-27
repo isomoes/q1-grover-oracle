@@ -1,16 +1,16 @@
 # Output Conventions
 
-Use the user's preferred language, or the conversation language when none is specified, for generated prose, headings, graph labels, logs, and explanatory JSON values. The English examples in this specification illustrate structure rather than impose an output language. Keep filenames, JSON keys, IDs, and enumerated values as specified for tool compatibility. Preserve original paper titles and bibliographic metadata for citation accuracy, adding translations into the output language when helpful.
+Use the user's preferred language, or the conversation language when none is specified, for generated prose, headings, graph labels, and explanatory JSON values. The English examples in this specification illustrate structure rather than impose an output language. Keep filenames, JSON keys, IDs, and enumerated values as specified for tool compatibility. Preserve original paper titles and bibliographic metadata for citation accuracy, adding translations into the output language when helpful.
 
 ## report.md
 
 Adjust length to the content and include:
-1. **Scope and key findings**: Research question, search date, cutoff date, inclusion boundaries, and coverage limitations; summarize the main evolution in a few sentences.
-2. **Core evolution graph**: Embed Mermaid content identical to `graph.mmd`, with a legend distinguishing roles, documented lineage/use, comparisons, and thematic relationships.
-3. **Route comparison table**: Route / problem addressed / early and key papers / methods / conditions / strengths / limitations / recent papers / conditionally leading representatives.
-4. **Core paper cards**: ID, original title, authors, public release and publication years, versions, sources, role justification, reading level, contributions, and evidence locations. Tables may be used for concision.
-5. **Newest and best**: List these separately. Leading-result assessments must specify metrics, comparators, and conditions. For numerical results, include units, versions, and original tables/sections. If evidence is insufficient, provide candidates and gaps.
-6. **Reading path and open verification questions**: Proceed from foundations to branches to the frontier. Identify unresolved questions that are only analyst suggestions; do not automatically claim research gaps or novelty.
+1. **Core evolution graph**: Embed the graph directly in a fenced `mermaid` code block, with a legend distinguishing roles, documented lineage/use, comparisons, and thematic relationships.
+2. **Route comparison table**: Route / problem addressed / early and key papers / methods / conditions / strengths / limitations / recent papers / conditionally leading representatives.
+3. **Core paper cards**: ID, original title, authors, public release and publication years, versions, sources, role justification, reading level, contributions, and evidence locations. Tables may be used for concision.
+4. **Newest and best**: List these separately. Leading-result assessments must specify metrics, comparators, and conditions. For numerical results, include units, versions, and original tables/sections. If evidence is insufficient, provide candidates and gaps.
+
+Use the JSON paper IDs for graph nodes. Double-quote labels and escape quotation marks, parentheses, and other Mermaid special characters. Every paper node must exist in the JSON; route IDs may be used for group names. Draw solid lines for evidence-supported lineage in major routes; do not invent edges to make the graph connected.
 
 ## papers.json
 
@@ -61,12 +61,6 @@ Use UTF-8 JSON. The following illustrates the structure; populate actual outputs
 - When `comparisons.values` contains numerical results, each item includes `paper_id, value, unit, variant, evidence`. Do not place values from different conditions side by side and rank them unconditionally. If reliable values are unavailable, leave the array empty and explain the conclusion in prose.
 - Use `null` for unknown dates; do not invent exact days. A future cutoff expresses the requested scope only; the coverage statement must specify the actual search date.
 
-## references.bib and graph.mmd
+## references.bib
 
 Assign one BibTeX key to each core paper, preferring source-provided entries. When metadata is incomplete, use a minimal valid entry with a URL. Choose one citation identity for preprint and published versions, preserving version notes in JSON rather than mixing years and page numbers from different versions.
-
-Use the JSON paper IDs for graph nodes. Double-quote labels and escape quotation marks, parentheses, and other Mermaid special characters. Every paper node must exist in the JSON; route IDs may be used for group names. Draw solid lines for evidence-supported lineage in major routes; do not invent edges to make the graph connected.
-
-## search-log.md
-
-Record exact queries, sources/tools, filter parameters, search dates, success/failure, result counts (or "unknown"), selected candidates, and exclusion reasons. Distinguish existing material from new evidence and identify supplementary sources actually used after failures. Retain excluded competitors that could change the assessment of leading results, with reasons for exclusion.

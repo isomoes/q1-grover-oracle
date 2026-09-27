@@ -12,10 +12,8 @@ def validate(root):
     errors = []
     required = (
         "report.md",
-        "graph.mmd",
         "papers.json",
         "references.bib",
-        "search-log.md",
     )
     for name in required:
         if not (root / name).is_file() or not (root / name).stat().st_size:
@@ -136,10 +134,12 @@ def validate(root):
     for c in data["comparisons"]:
         refs([c.get("route_id")], rids, "comparison.route_id")
         refs(c.get("paper_ids"), pids, "comparison.paper_ids")
-    graph = (root / "graph.mmd").read_text().strip()
     report = (root / "report.md").read_text()
-    if graph not in report:
-        errors.append("report.md does not embed the exact graph.mmd content")
+    graphs = re.findall(
+        r"^```mermaid[ \t]*\r?\n(.*?)^```[ \t]*$", report, re.MULTILINE | re.DOTALL
+    )
+    if not any(graph.strip() for graph in graphs):
+        errors.append("report.md must embed a nonempty Mermaid code block")
     for pid in pids:
         if pid not in report:
             errors.append(f"{pid} not found in report.md")

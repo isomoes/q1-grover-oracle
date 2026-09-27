@@ -2,52 +2,7 @@
 
 **Search and cutoff:** 2026-09-27. **Recent window:** 2024-09-27–2026-09-27. **Coverage:** preliminary; 20 core papers, five overlapping routes.
 
-## 1. Scope and main findings
-
-The question from this repository's [README](../../README.md) is whether jointly optimizing nonlinear layers, linear layers, key scheduling, comparison, and uncomputation reduces the cost of a **complete Grover iteration**, initially for AES-128, under matched resource and success constraints.
-
-The literature has progressed from explicit AES resource estimates to specialized S-box and linear-layer synthesis, joint round/key scheduling, and oracle-aware cleanup. These routes now overlap strongly: an isolated low-depth or low-width component does not determine the best complete search implementation.
-
-The most useful conclusions for this project are:
-
-1. **Start reproduction with corrected Jaques et al. (P03), not its original 2020 estimates.** Its 2023-06-07 revision explains estimator corrections and includes transcript comparison. The associated resource-fix artifact revision is identifiable. This is a reproducibility recommendation, not a current-optimality claim.
-2. **Treat Liao–Luo (P06) as an important low-width competitor, with explicit completion work.** Appendix G excludes ciphertext comparison. Table 4's reported “Toffoli depth” also excludes layers replaceable by measurement-assisted cleanup; it is not ordinary strictly unitary NCT depth. Appendix H assumes classically precomputed fixed-key expansion and is a different interface.
-3. **Add missing architectural prior art before claiming novelty:** Zou et al. (P11), Huang–Sun (P12), Liu et al. (P13), Jang et al. (P14), and Abdolmaleki–Gu (P15). Ancilla sharing, joint forward/reverse scheduling, and removal of local cleanup already have explicit antecedents.
-4. **No cheapest complete AES Grover iteration is established by this review.** Pair counts, depth definitions, measurement models, comparison costs, and diffusion costs are not yet normalized across the strongest candidates.
-5. **Newest is not best:** Qarton (P20), approved 2026-09-26, is the newest verified core release and a resource-estimation tool candidate; it is not an AES cost record.
-
-### Boundaries and evidence strength
-
-Q1 here means classical access to the target's secret-key interface, with coherent **local** evaluation of the public cipher using candidate keys. Classical known plaintext/ciphertext pairs and no QRAM are the initial setting. AES-192/256 and DES/3DES inform extensions; fixed-secret-key superposition interfaces, Simon-based attacks, QRAM-dependent meet-in-the-middle attacks, and physical fault-tolerance estimates are not pooled with this baseline.
-
-Primary evidence includes IACR, arXiv, publication records, and author artifacts. aPaper was the search entry point. DBLP failed; Scholar/arXiv queries returned zero; IACR year filters missed verified 2026 papers. Supplementary searches continued to reveal relevant candidates, so saturation was not reached. Most papers were checked at abstract level; **full-text** below means selected passages unless explicitly stated otherwise. No circuit, solver witness, or published resource table was reproduced. See [search-log.md](search-log.md) for access failures and screening, [papers.json](papers.json) for claim-level sources, and [references.bib](references.bib) for the 20-paper bibliography.
-
-## 2. Accounting contract
-
-For fixed classical pairs, use the predicate and clean-workspace contract from the [research plan](../../docs/research-plan.md):
-
-```text
-f(K) = AND_i [E_K(P_i) = C_i]
-O_f |K>|0_workspace> = (-1)^f(K) |K>|0_workspace>
-Grover iteration = phase oracle followed by key-register diffusion
-```
-
-Report four separate objects: **encryption; complete phase oracle; complete iteration; successful key-recovery attack**. A fixed-key encryption oracle is not a coherent candidate-key implementation.
-
-| Contract item | Required normalization |
-|---|---|
-| Search problem | Key/block size, number of pairs, marked-key count assumptions, target success, verification and retries |
-| Circuit interface | In-place/out-of-place, preserved registers, clean/dirty/conditionally clean ancillas, all required final states |
-| Gate model | NCT and Clifford+T separately; specify decomposition, measurements, feed-forward and topology |
-| Resources | Peak live width, full scheduled depth, T-depth, family counts and measurements from the same circuit/schedule |
-| Products | Label full-depth×width, T-depth×width and author-defined Toffoli-depth×width separately |
-| Parallelism | Number of processors, partition policy, aggregate work and per-processor depth cap |
-
-For a strictly unitary compute–mark–uncompute construction, gate counts can be written as `2 C_compute + C_mark`; the diffuser is additional. Measurement-assisted cleanup requires its own count and schedule. Width is peak liveness, not the sum of independently optimized component widths; full depth cannot be inferred from T-depth alone.
-
-For known `M`, ideal Grover success is `sin²((2j+1) asin(sqrt(M/2^k)))` after `j` iterations (P01, P18). The familiar square-root count has assumptions. Under the ideal-cipher/independent-pair approximation, expected false matches are approximately `(2^k−1) 2^(−nr)`. Thus AES-128 with one pair has roughly one additional matching key in expectation; two pairs reduce that expectation to roughly `2^−128`. This guides the baseline's pair count but does not prove uniqueness for a concrete transcript. Finding a matching key and recovering the original key are different success events.
-
-## 3. Core evolution graph
+## 1. Core evolution graph
 
 Nodes retain the project's G01–G09 aliases as P01–P09; IDs do not encode chronology. Placement uses one primary route per node; the JSON records cross-membership. Labels give initial/publication years where they differ, plus important revisions.
 
@@ -111,7 +66,34 @@ flowchart TB
   class P03,P08 baseline;
 ```
 
-## 4. Route comparison
+## 2. Route comparison
+
+### Accounting contract
+
+For fixed classical pairs, use the predicate and clean-workspace contract from the [research plan](../../docs/research-plan.md):
+
+```text
+f(K) = AND_i [E_K(P_i) = C_i]
+O_f |K>|0_workspace> = (-1)^f(K) |K>|0_workspace>
+Grover iteration = phase oracle followed by key-register diffusion
+```
+
+Report four separate objects: **encryption; complete phase oracle; complete iteration; successful key-recovery attack**. A fixed-key encryption oracle is not a coherent candidate-key implementation.
+
+| Contract item | Required normalization |
+|---|---|
+| Search problem | Key/block size, number of pairs, marked-key count assumptions, target success, verification and retries |
+| Circuit interface | In-place/out-of-place, preserved registers, clean/dirty/conditionally clean ancillas, all required final states |
+| Gate model | NCT and Clifford+T separately; specify decomposition, measurements, feed-forward and topology |
+| Resources | Peak live width, full scheduled depth, T-depth, family counts and measurements from the same circuit/schedule |
+| Products | Label full-depth×width, T-depth×width and author-defined Toffoli-depth×width separately |
+| Parallelism | Number of processors, partition policy, aggregate work and per-processor depth cap |
+
+For a strictly unitary compute–mark–uncompute construction, gate counts can be written as `2 C_compute + C_mark`; the diffuser is additional. Measurement-assisted cleanup requires its own count and schedule. Width is peak liveness, not the sum of independently optimized component widths; full depth cannot be inferred from T-depth alone.
+
+For known `M`, ideal Grover success is `sin²((2j+1) asin(sqrt(M/2^k)))` after `j` iterations (P01, P18). The familiar square-root count has assumptions. Under the ideal-cipher/independent-pair approximation, expected false matches are approximately `(2^k−1) 2^(−nr)`. Thus AES-128 with one pair has roughly one additional matching key in expectation; two pairs reduce that expectation to roughly `2^−128`. This guides the baseline's pair count but does not prove uniqueness for a concrete transcript. Finding a matching key and recovering the original key are different success events.
+
+### Comparison table
 
 | Route and question | Foundations and turning points | Methods and strengths | Conditions and limitations | Recent work and conditional assessment | Read/reproduce first |
 |---|---|---|---|---|---|
@@ -123,7 +105,7 @@ flowchart TB
 
 “Foundation” denotes an anchor for this scoped route, not necessarily the first paper in the broader topic. In particular, P07 credits earlier AND/decomposition work, and P17 is not the origin of all linear reversible synthesis. Generic reversible-computation and pebbling history remains an expansion area.
 
-## 5. Core paper cards
+## 3. Core paper cards
 
 Dates below distinguish first repository release from formal publication; a repository deposit need not be the earliest circulation. Exact unknown release dates remain unknown. Original titles and full author lists are retained here and in the JSON.
 
@@ -169,13 +151,13 @@ Dates below distinguish first repository release from formal publication; a repo
 
 **P19 — Rise of conditionally clean ancillae for efficient quantum circuit constructions.** Tanuj Khattar, Craig Gidney. First preprint **2024-07-25**, checked v2 **2025-05-20**; *Quantum* **2025**, article 1752, published May 21. **Read: selected full text**, §1–5.2/Table 1 plus comparator-heading check. Recent multi-control candidate relevant to equality/marking and diffusion. [Full text](https://arxiv.org/html/2407.17966v2); evidence: §3, §5.2 Figure 3. Borrowed states require restoration; the clean-ancilla construction explicitly uses P07 measurement-based cleanup. §6.3's arithmetic comparator is `LessThanConst`, not AES equality.
 
-**P15 — Low-Depth Construction of Grover Oracles from Fully Functional Quantum Circuits.** Behzad Abdolmaleki, Jiaqi Gu. Full-version ePrint approved **2026-03-22**; IEEE QCNC **2026**, as labeled by the official ePrint record. **Read: selected full text**, §1.1, §3.2, §4 and Appendix B. Direct prior art for removing local cleanup and reintroducing depth-preserving cleanup within a computational-basis/unitary-reversal framework. [Paper](https://eprint.iacr.org/2026/568). Appendix B uses P11 and P14, but its AES width numbers explicitly omit comparison and marking. Schedule dependence, width tradeoffs and an arithmetic typo require care; see §6 below.
+**P15 — Low-Depth Construction of Grover Oracles from Fully Functional Quantum Circuits.** Behzad Abdolmaleki, Jiaqi Gu. Full-version ePrint approved **2026-03-22**; IEEE QCNC **2026**, as labeled by the official ePrint record. **Read: selected full text**, §1.1, §3.2, §4 and Appendix B. Direct prior art for removing local cleanup and reintroducing depth-preserving cleanup within a computational-basis/unitary-reversal framework. [Paper](https://eprint.iacr.org/2026/568). Appendix B uses P11 and P14, but its AES width numbers explicitly omit comparison and marking. Schedule dependence, width tradeoffs and an arithmetic typo require care; see §4 below.
 
 **P08 / G08 — A Quantum Circuit to Execute a Key-Recovery Attack Against the DES and 3DES Block Ciphers.** Simone Perriello, Alessandro Barenghi, Gerardo Pelosi. IEEE QCE **2024**, September 15–20; exact first public release unknown. **Read: metadata and artifact README.** Portability baseline, not an AES competitor: the author artifact describes S-box tests and attack-metric generation in NCT+H and Clifford+T. [Artifact](https://github.com/paper-codes/2024-QCE), [DOI](https://doi.org/10.1109/QCE60285.2024.00011). Its QRAM-free Grover and QRAM-using 3DES meet-in-the-middle settings must remain separate. No experiments run.
 
 **P20 — Building Quantum Circuits with Qarton.** André Schrottenloher. Received **2026-09-23**, approved **2026-09-26**; **preprint**. **Read: abstract.** Newest verified core release, introducing hierarchical logical-circuit representation and resource estimation for large cryptanalytic computations. [Primary record](https://eprint.iacr.org/2026/2191); evidence: Abstract/History. Tool candidate only: no code inspected or AES resource result verified.
 
-## 6. Newest work versus best-supported choices
+## 4. Newest work versus best-supported choices
 
 ### Newest verified core releases and recent revisions
 
@@ -244,38 +226,3 @@ No paper is designated a universal complete-iteration winner, and no independent
 | [ePrint 2025/1664](https://eprint.iacr.org/2025/1664), large-S-box MILP candidate | Optimization of nonlinear components | Retrieved description uses U+CX-transpiled depth; not normalized to Clifford+T/full-oracle accounting |
 | [ePrint 2026/1446](https://eprint.iacr.org/2026/1446), LLM-assisted circuit optimization, revised 2026-08-06 | Recent implementation/search methodology | Preprint, chiefly lightweight-cipher evidence; AES complete-oracle claim and independent verification not established |
 | ADOQ and newer multi-controlled-gate decompositions | Could affect comparison/diffusion or implementation automation | Candidate identities, versions and compatible cost models require a dedicated expansion round |
-
-## 7. Reading order and the first reproducibility task
-
-**Short path:** P01 → P18 → P02 → corrected P03 → P12/P13 → P14 → P06 → P07/P19 → P15. Then take P17→P04→P16 for linear depth, P05→P09 for nonlinear synthesis, and P20 for tooling. P10/P11 explain earlier architectural tradeoffs; P08 is the second-primitive portability check.
-
-### Pin P03 before optimizing
-
-The inspected artifact is [`microsoft/grover-blocks`](https://github.com/microsoft/grover-blocks), commit [`fe65e0b29f6c3c3be02ca839259b91f2e71233bc`](https://github.com/microsoft/grover-blocks/commit/fe65e0b29f6c3c3be02ca839259b91f2e71233bc), merged **2023-06-05**, “Version update and resource estimation fixes.” Pair it with the **2023-06-07** corrected paper.
-
-The pinned [`aes/cswrapper.csproj`](https://raw.githubusercontent.com/microsoft/grover-blocks/fe65e0b29f6c3c3be02ca839259b91f2e71233bc/aes/cswrapper.csproj) specifies `Microsoft.Quantum.Sdk/0.27.244707`, Standard `0.27.244707`, `net6.0`, and FileHelpers `3.4.1`. The installation notes still refer to .NET 2.1/Q# 0.7-era setup. These are inspected dependency declarations, **not a tested installation recipe**.
-
-The next experiment should:
-
-1. Reconstruct a pinned runnable environment and record toolchain changes needed to execute it.
-2. Reproduce encryption and the corrected Table 9 AES-128 `r=2`, IP row, explaining every count difference.
-3. Validate the complete phase predicate and zeroed workspace on tractable component/toy instances; test cipher components against known answers.
-4. Add and cost key-register diffusion under the same decomposition, ancilla and measurement rules.
-5. Introduce one candidate change at a time, then evaluate compatible combinations using the same transcript and success assumptions.
-
-P03 §3.3 is mandatory reading: measurement feedback dependencies, inconsistent width/depth estimation, and dependency tracking through nominally free permutations can change reported results without changing the intended cipher.
-
-## 8. Open verification questions
-
-These are **project-specific verification tasks and analyst suggestions**, not established research gaps or novelty claims.
-
-1. **P14 versus corrected P03:** which exact architecture/version and scheduler underlie each comparison? Recheck original tables and distinguish discovered bugs from already corrected ones.
-2. **Complete P06:** implement equality/conjunction and their cleanup, match `r=2`, add diffusion, and schedule measurement/feed-forward explicitly. Does its width advantage persist at fixed full-depth or success constraints?
-3. **P05/P12 optimality domains:** identify the precise allowed gates, ancillas, input/output contracts and theorem bounds before using “minimal.”
-4. **P04/P16 linear costs:** evaluate the same binary map and connectivity with explicit permutation tracking. How much is synthesis and how much is gate-order scheduling?
-5. **P15 transformation:** resolve Appendix B arithmetic/depth wording, check the original P14 comparator, and derive complete marking/uncomputation costs under the stated unitary assumptions.
-6. **P07/P19 integration:** independently verify relative phases, clean/dirty borrowed-state restoration and measurement corrections; distinguish AES equality from arithmetic `LessThanConst`.
-7. **Exact synthesis:** obtain and independently verify P09 witnesses and lower-bound certificates within the stated bounded domain.
-8. **Frontier coverage:** reconcile the Chen et al. versions; inspect newer decomposition/ADOQ candidates and Qarton artifacts; expand generic uncomputation/pebbling foundations if they become central. Re-run recent searches without trusting the observed year filters.
-
-The immediate research opportunity is to establish a **matched, reproducible end-to-end comparison**. Whether a particular joint optimization is new or better remains to be demonstrated against these candidates.
