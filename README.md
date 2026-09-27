@@ -16,7 +16,8 @@ The intended result is a reproducible comparison of complete attack oracles and 
 
 - [Research plan and model](docs/research-plan.md)
 - [Annotated paper references and reading order](docs/reference.md)
-- [Research landscape: 20 core papers and five routes](research-landscape/q1-grover-oracle/report.md) (searched 2026-09-27; preliminary coverage)
+- [Research workspace: landscape, paper reading, and notes](apaper/README.md)
+- [Research landscape: 20 core papers and five routes](apaper/landscape/report.md) (searched 2026-09-27; preliminary coverage)
 - [Papers we have read (issue #1)](https://github.com/isomoes/q1-grover-oracle/issues/1)
 - [BibTeX bibliography](docs/references.bib)
 - [Experiment record template](experiments/template.md)

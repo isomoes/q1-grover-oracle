@@ -13,6 +13,7 @@ Keep this skill's instructions, documentation, examples, and code comments in En
 
 ## 1. Define the Scope and Assessment Criteria
 
+- Read `references/workspace.md` to resolve the shared project workspace (`apaper/` by default, without a topic layer) and reuse existing paper identities before collecting outputs.
 - Read the user's topic, seed papers, and project context. Ask for clarification only when ambiguity would change the research subject; otherwise state working assumptions and begin.
 - Specify the research question, inclusion and exclusion boundaries, cutoff date, and the tasks, conditions, and metrics used to assess "best." Use the current date as the search date. For a historical cutoff, use only evidence publicly available by that date; do not attribute later revisions' results to historical versions.
 - Aim for roughly 10–20 papers and 3–6 routes in the core graph, with a recent-work window of the past 24 months. These are reading-load targets, not quotas. Narrow fields may need fewer papers; for broad fields, provide a top-level map first and identify uncovered branches.
@@ -38,7 +39,7 @@ Stop when each major route has a historical anchor, a key turning point, and rec
 
 ## 3. Verify Papers and Evidence
 
-- Assign stable paper IDs such as P01. Merge preprints, conference/journal versions, and revisions of the same work, retaining each version's date, URL, and differences. Give substantively independent follow-up work its own node.
+- Assign stable paper IDs such as P01, checking both the existing map and `papers/` reading records to reuse identities and avoid collisions. Merge preprints, conference/journal versions, and revisions of the same work, retaining each version's date, URL, and differences. Give substantively independent follow-up work its own node.
 - Verify titles, authors, years, publication status, and DOI/identifiers against primary records. Leave unavailable fields empty; do not infer DOIs, page numbers, or acceptance status from URL patterns.
 - Record evidence reading levels as `metadata`, `abstract`, or `full_text`. Track code inspection and reproduction separately. Accessing an abstract is not reading the full text; reading code is not reproducing experiments.
 - Give reasons and sources for every pioneering, key, or leading designation. Prefer support from both the original paper and a later survey/paper for claims of being "first." Otherwise use "early representative" or "foundational candidate" rather than forcing a single origin.
@@ -71,13 +72,15 @@ Do not automatically promote component-level improvements to whole-system result
 
 ## 6. Deliver and Review
 
-Read `references/output.md` and follow its conventions in the user-specified directory, defaulting to `research-landscape/<topic-slug>/`. Read existing outputs before updating them incrementally, preserving stable IDs and user annotations.
+Read `references/output.md` and follow the shared workspace contract in `references/workspace.md`. Default to `apaper/landscape/` for the three map files; honor explicit paths and legacy workspaces. Read existing outputs before updating them incrementally, preserving stable IDs and user annotations. Keep retained search logs and scratch material in the map's `work/` directory.
 
 Deliver:
 1. `report.md`: The core Mermaid graph, route comparisons, core papers across the foundational, route-defining, and frontier tiers, and recent and leading results.
 2. `papers.json`: Search dates and coverage, papers, routes, edges, sources, and structured comparison records.
 3. `references.bib`: Verified core-paper bibliography with keys matching the JSON.
 
-Run `python3 <skill-dir>/scripts/validate.py <output-dir>` to check structure, reference IDs, and file consistency. It does not verify paper authenticity or scholarly judgments. Separately review key evidence, temporal boundaries, duplicate versions, and unjustified "best" claims. Check Mermaid label escaping and the edge legend, and preview the graph when possible.
+Maintain the workspace root's `README.md` with links to the map and existing paper-reading records. For a user who wants to understand a selected paper in depth, hand off to `paper-reading` with the workspace root, paper ID, exact version, route context, and unresolved reading question. That skill stores reading materials under the same root's `papers/<paper-id>/`.
+
+Run `python3 <skill-dir>/scripts/validate.py <landscape-dir>` against the directory containing the three map files to check structure, reference IDs, and file consistency. It does not verify paper authenticity or scholarly judgments. Separately review key evidence, temporal boundaries, duplicate versions, and unjustified "best" claims. Check Mermaid label escaping and the edge legend, and preview the graph when possible.
 
 Finish with a brief summary in the output language of the main routes, the most important assessments, and remaining disputes, plus the report path. Do not repeat the entire report in chat.

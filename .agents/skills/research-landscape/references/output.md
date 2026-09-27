@@ -1,5 +1,7 @@
 # Output Conventions
 
+Read `workspace.md` for the shared project-workspace layout, legacy migration, paper identities, and handoff to deep reading. The three files below belong in `apaper/landscape/` by default, without a topic subdirectory. Maintain `apaper/README.md` as the shared navigation entry point; retained map intermediates belong in `apaper/landscape/work/`.
+
 Use the user's preferred language, or the conversation language when none is specified, for generated prose, headings, graph labels, and explanatory JSON values. The English examples in this specification illustrate structure rather than impose an output language. Keep filenames, JSON keys, IDs, and enumerated values as specified for tool compatibility. Preserve original paper titles and bibliographic metadata for citation accuracy, adding translations into the output language when helpful.
 
 ## report.md
