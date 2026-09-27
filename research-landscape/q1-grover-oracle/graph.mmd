@@ -1,0 +1,55 @@
+flowchart TB
+  subgraph R01["R01 - Search and complete-oracle accounting"]
+    P01["P01 Grover search | 1996 | foundation"]
+    P18["P18 Tight search bounds | 1996 / 1998 | foundation"]
+    P02["P02 AES resource estimates | 2015 / 2016 | foundation"]
+    P03["P03 Full AES and LowMC oracles | 2019 / 2020; corrected 2023 | baseline"]
+    P08["P08 DES and 3DES | 2024 | portability baseline"]
+    P20["P20 Qarton | 2026 | PREPRINT; tool candidate"]
+  end
+  subgraph R02["R02 - Nonlinear synthesis"]
+    P10["P10 Reduced-cost AES | 2019 / 2020 | milestone"]
+    P11["P11 Fewer-qubit AES | 2020 | milestone"]
+    P12["P12 Lower T-depth AES | 2022 | milestone"]
+    P05["P05 Minimal-depth or width | 2025 | frontier candidate"]
+    P09["P09 SMT encoding | 2026 | PREPRINT; component candidate"]
+  end
+  subgraph R03["R03 - Linear synthesis and scheduling"]
+    P17["P17 Linear reversible depth | 2021 | route foundation"]
+    P04["P04 Low-depth linear layer | 2024 | milestone"]
+    P16["P16 Linear-layer framework | 2025 | PREPRINT; candidate"]
+  end
+  subgraph R04["R04 - Round and key-schedule co-design"]
+    P13["P13 Mixing-XOR and shared pipeline | 2023 | milestone"]
+    P14["P14 Quantum Analysis of AES | 2022 preprint / 2025 revision | candidate"]
+    P06["P06 Low DW-cost AES | 2025 | frontier candidate"]
+  end
+  subgraph R05["R05 - Cleanup, comparison and diffusion"]
+    P07["P07 Temporary logical-AND | 2017 / 2018 | foundation"]
+    P19["P19 Conditionally clean ancillae | 2024 / 2025 | component candidate"]
+    P15["P15 FFQC-to-oracle transformation | 2026 | frontier candidate"]
+  end
+  P01 -->|"uses"| P02
+  P18 -->|"uses"| P03
+  P02 -->|"uses"| P03
+  P02 -.->|"comparison"| P10
+  P10 -.->|"comparison"| P03
+  P03 -.->|"comparison"| P12
+  P11 -.->|"comparison"| P12
+  P12 -->|"extends"| P13
+  P12 -.->|"comparison"| P05
+  P05 -.->|"comparison - Keccak only"| P09
+  P17 -->|"extends"| P04
+  P04 -.->|"thematic relation, not verified lineage"| P16
+  P03 -->|"extends - architecture"| P14
+  P04 -.->|"comparison - 2025 revision"| P14
+  P14 -.->|"comparison"| P06
+  P07 -->|"uses"| P19
+  P11 -->|"uses"| P15
+  P14 -->|"uses - AES components and schedule"| P15
+  P03 -.->|"thematic relation, not verified lineage"| P08
+  P03 -.->|"thematic relation, not verified lineage"| P20
+  classDef preprint fill:#fff3cd,stroke:#856404,stroke-dasharray:5 3;
+  classDef baseline fill:#dceeff,stroke:#24527a;
+  class P09,P16,P20 preprint;
+  class P03,P08 baseline;

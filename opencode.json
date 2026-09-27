@@ -1,0 +1,4 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": ["@ai4paper/apaper-plugin"]
+}
