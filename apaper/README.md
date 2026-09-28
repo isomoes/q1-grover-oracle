@@ -12,14 +12,15 @@ The map contains 20 core papers and five routes, searched on 2026-09-27 with pre
 
 ## Paper reading
 
-No interactive deep-reading sessions have been recorded yet. Start with a paper ID, title, or a specific question; P03 is the landscape's recommended first reproduction baseline. Preserve P01–P20 and the G-series aliases already recorded in the map.
+Interactive reading records now include P01/G01. P03 remains the landscape's recommended first reproduction baseline. Preserve P01–P20 and the G-series aliases already recorded in the map.
 
-Create `papers/<paper-id>/` when reading begins. Each paper gets `paper.json` for source identity and inspection coverage, `reading.md` for progress and open questions, and `notes.md` when the user marks something for retention. Keep original materials in `sources/` and extraction, rendered pages, and scratch calculations in `work/` inside that paper's directory.
+Create `papers/<paper-id>/` when reading begins. Paper identities and reading links live in the shared [paper registry](landscape/papers.json). Each paper gets `reading.md` for sources, inspection coverage, progress, and open questions, plus selected notes (`note.md` for P01). Keep original materials in `sources/` and extraction, rendered pages, and scratch calculations in `work/` inside that paper's directory.
 
 Add a linked row here when a reading session starts:
 
 | Paper | Reading record | Saved notes | Next question |
 |---|---|---|---|
+| P01 / G01 — Grover 1996 | [Progress and sources](papers/P01/reading.md) | [2026-09-15 notes](papers/P01/note.md) | Why does candidate-dependent garbage change the N=4 diffusion example even without measurement? |
 
 ## Later synthesis
 

@@ -111,7 +111,7 @@ Dates below distinguish first repository release from formal publication; a repo
 
 ### Foundations and the reproducible baseline
 
-**P01 / G01 — A fast quantum mechanical algorithm for database search.** Lov K. Grover. STOC **1996**; arXiv v1 1996-05-29, checked v3 1996-11-19; earliest exact public day not established. **Read: abstract.** The search foundation supplies the query-level speedup; it does not specify AES predicate cost. [Primary record and DOI](https://arxiv.org/abs/quant-ph/9605043); evidence: Abstract/Comments.
+**P01 / G01 — A fast quantum mechanical algorithm for database search.** Lov K. Grover. STOC **1996**; arXiv v1 1996-05-29, checked v3 1996-11-19; earliest exact public day not established. **Read: selected full text (2026-09-28).** Inspected STOC §§1–4, pp. 212–215, and arXiv v3 §§1–3 plus §4 p. 4; detailed convergence proofs not audited. The search foundation supplies the query-level speedup; it does not specify AES predicate cost. The v3 §3 closing paragraph explicitly requires phase marking to leave no state trace, enabling interference. [Primary record and DOI](https://arxiv.org/abs/quant-ph/9605043); [version-specific sources and reading progress](../papers/P01/reading.md).
 
 **P18 — Tight bounds on quantum searching.** Michel Boyer, Gilles Brassard, Peter Høyer, Alain Tapp. Preprint **1996-05-23**; *Fortschritte der Physik* **1998**. **Read: abstract.** Essential for exact success probability, multiple solutions and unknown solution count. Its arXiv upload precedes P01's upload but discusses Grover's already circulating algorithm; upload order is not an invention-priority claim. [Primary record](https://arxiv.org/abs/quant-ph/9605034); evidence: Abstract and journal reference.
 
