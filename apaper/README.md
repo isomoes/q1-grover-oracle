@@ -12,15 +12,14 @@ The map contains 20 core papers and five routes, searched on 2026-09-27 with pre
 
 ## Paper reading
 
-Interactive reading records now include P01/G01. P03 remains the landscape's recommended first reproduction baseline. Preserve P01–P20 and the G-series aliases already recorded in the map.
+Interactive reading records cover P01/G01 and P02/G02. P03 remains the landscape's recommended first reproduction baseline. Preserve P01–P20 and the G-series aliases already recorded in the map.
 
-Create `papers/<paper-id>/` when reading begins. Paper identities and reading links live in the shared [paper registry](landscape/papers.json). Each paper gets `reading.md` for sources, inspection coverage, progress, and open questions, plus selected notes (`note.md` for P01). Keep original materials in `sources/` and extraction, rendered pages, and scratch calculations in `work/` inside that paper's directory.
-
-Add a linked row here when a reading session starts:
+Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, routes, key evidence, and the reading-record link in the shared [paper registry](landscape/papers.json). Keep detailed source inventories, inspected sections, reading context, progress, and open questions in each paper's `reading.md`; create `notes.md` when the user marks something for retention. Keep original materials in `sources/` and local extraction, rendered pages, and scratch calculations in Git-ignored `work/` inside that paper's directory.
 
 | Paper | Reading record | Saved notes | Next question |
 |---|---|---|---|
 | P01 / G01 — Grover 1996 | [Progress and sources](papers/P01/reading.md) | [2026-09-15 notes](papers/P01/note.md) | Why does candidate-dependent garbage change the N=4 diffusion example even without measurement? |
+| P02 / G02 — Applying Grover's algorithm to AES | [Orientation; arXiv v1](papers/P02/reading.md) | None selected | §2 and Figure 3: why does reversing AES preserve the marked phase while clearing workspace? |
 
 ## Later synthesis
 

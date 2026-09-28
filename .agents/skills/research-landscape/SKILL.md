@@ -40,6 +40,7 @@ Stop when each major route has a historical anchor, a key turning point, and rec
 ## 3. Verify Papers and Evidence
 
 - Assign stable paper IDs such as P01, checking both the existing map and `papers/` reading records to reuse identities and avoid collisions. Merge preprints, conference/journal versions, and revisions of the same work, retaining each version's date, URL, and differences. Give substantively independent follow-up work its own node.
+- Use `landscape/papers.json` as the single identity registry shared with paper-reading. Keep key landscape evidence and reading links there; keep detailed sources, inspection coverage, and artifact records in each paper's `reading.md`. Preserve those records and links when updating map assessments; do not create duplicate per-paper metadata files. A registry initialized by reading may exist before a landscape report.
 - Verify titles, authors, years, publication status, and DOI/identifiers against primary records. Leave unavailable fields empty; do not infer DOIs, page numbers, or acceptance status from URL patterns.
 - Record evidence reading levels as `metadata`, `abstract`, or `full_text`. Track code inspection and reproduction separately. Accessing an abstract is not reading the full text; reading code is not reproducing experiments.
 - Give reasons and sources for every pioneering, key, or leading designation. Prefer support from both the original paper and a later survey/paper for claims of being "first." Otherwise use "early representative" or "foundational candidate" rather than forcing a single origin.
@@ -72,7 +73,7 @@ Do not automatically promote component-level improvements to whole-system result
 
 ## 6. Deliver and Review
 
-Read `references/output.md` and follow the shared workspace contract in `references/workspace.md`. Default to `apaper/landscape/` for the three map files; honor explicit paths and legacy workspaces. Read existing outputs before updating them incrementally, preserving stable IDs and user annotations. Keep retained search logs and scratch material in the map's `work/` directory.
+Read `references/output.md` and follow the shared workspace contract in `references/workspace.md`. Default to `apaper/landscape/` for the three map files; honor explicit paths and legacy workspaces. Read existing outputs before updating them incrementally, preserving stable IDs, reading links, and user annotations. Keep retained search logs and scratch material in the map's Git-ignored `work/` directory; keep durable search coverage and evidence in the tracked registry and report.
 
 Deliver:
 1. `report.md`: The core Mermaid graph, route comparisons, core papers across the foundational, route-defining, and frontier tiers, and recent and leading results.

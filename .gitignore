@@ -14,3 +14,7 @@ __pycache__/
 # Downloaded papers and temporary scratch work
 /local-pdf/
 /tmp/
+
+# Generated research intermediates (keep reading notes and sources tracked)
+/apaper/papers/*/work/
+/apaper/landscape/work/

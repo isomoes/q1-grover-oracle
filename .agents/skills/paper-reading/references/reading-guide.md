@@ -34,7 +34,7 @@ Inspect rendered pages when extraction damages subscripts, signs, matrices, figu
 
 Explain inputs, outputs, invariants, state changes, and failure conditions. Map pseudocode to named files/functions at a recorded commit only after inspection. Code availability, reading a README, inspecting implementation, executing a command, and reproducing a published result are separate levels of evidence. Do not claim the stronger level based on the weaker one.
 
-For scratch computations, record the inputs, assumptions, command or derivation, and observed result in `work/`, linking from `reading.md`. A numerical check is not a substitute for the paper's proof. An artifact run is not table reproduction unless settings and results were matched.
+For scratch computations, keep generated files and logs in Git-ignored `work/`. Record durable inputs, assumptions, commands or derivations, and observed results in `reading.md`, selected notes, or synthesis; link scratch outputs only as optional local aids. A numerical check is not a substitute for the paper's proof. An artifact run is not table reproduction unless settings and results were matched.
 
 ## Results and Comparisons
 

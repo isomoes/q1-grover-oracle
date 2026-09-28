@@ -2,65 +2,42 @@
 
 Use these as compact templates, not quotas. Generated prose follows the user's language; filenames, JSON keys, and enumerated values remain as specified. Never fill templates with invented facts. Use `null` or an explicit unresolved statement when information is unknown.
 
-## paper.json
+## Shared Registry: landscape/papers.json
 
-Create this when a paper-reading session starts. Paths in this file are relative to its containing paper directory. Metadata from a landscape is inherited context until checked; a source entry's coverage describes only actual inspection, not presumed access.
+Use the matching object in the shared registry's `papers` array. Keep identity, aliases, citation metadata, versions, routes, `read_level`, a brief scope summary, and key landscape evidence on that object. Add only a reading-record link when a reading session starts. Detailed source inventories, inspected sections, active source, artifact records, and reading context belong in `reading.md`. Do not create a per-paper metadata file or copy the reading record into the registry. Existing metadata is inherited context until checked.
+
+The following is a partial registry entry showing the reading link, not a replacement for the full paper schema in `../../research-landscape/references/output.md`:
 
 ```json
 {
-  "schema_version": 1,
-  "paper_id": "P03",
-  "landscape_id": "P03",
-  "title": "Original title from the verified record",
+  "id": "P03",
   "aliases": [],
-  "bibtex_key": null,
-  "identity_source": "../../landscape/papers.json",
-  "active_source_id": "S01",
-  "sources": [
-    {
-      "id": "S01",
-      "role": "target",
-      "title": "Source title",
-      "url": "https://example.org/primary-record",
-      "local_path": null,
-      "version": null,
-      "version_date": null,
-      "accessed_on": null,
-      "access": "unavailable",
-      "inspection_level": "none",
-      "inspected_sections": [],
-      "purpose": "Target paper for the selected question",
-      "notes": "Full text not yet retrieved"
-    }
-  ],
-  "artifacts": []
+  "identity_source": "https://example.org/primary-record",
+  "reading": {
+    "record_path": "../papers/P03/reading.md"
+  }
 }
 ```
 
 This is a structural example, not an actual P03 record. Replace its values using real evidence.
 
-- `landscape_id` equals `paper_id` when the paper is in the project's map; otherwise use `null`. For a newly selected paper with an existing landscape, synchronize it as described below rather than leaving it permanently reading-only. `identity_source` points to the map or a checked bibliographic record/local origin, or is `null` if unknown. The title is required; unresolved identity should be stated rather than silently guessed.
-- Source IDs such as S01 are stable and paper-local. `active_source_id` identifies the target version currently being read, or is `null` when unresolved. Do not repurpose an old source ID for a revised version.
-- `role`: `target`, `appendix`, `erratum`, `prerequisite`, `baseline`, `follow_up`, `explanation`, or `code`.
-- `access`: `local`, `remote`, or `unavailable`. Local access requires an existing `local_path`; remote access can have no local copy. A known URL alone does not establish successful remote access.
-- `inspection_level`: `none`, `metadata`, `abstract`, or `full_text`. For `full_text`, `inspected_sections` specifies exactly what was read; only list the entire text if actually read. For code, use the separate artifact coverage below rather than equating it to paper full-text inspection.
-- `version` may identify an arXiv revision, an ePrint revision date, a publication, or a code commit; use `null` if unknown. `version_date` and `accessed_on` are actual known dates, not inferred publication days. An optional `sha256` helps distinguish mutable downloaded files but does not prove a publication date.
-- Each artifact entry records `source_id`, `commit` (or `null`), `inspected_paths`, `execution` (`not_run` / `ran` / `reproduced`), and `result`. For a run, also retain its command, conditions, and log path under `work/`; use `reproduced` only with the specific matched result and comparison evidence.
+- The registry's `id` is the only paper ID; do not add duplicate `paper_id` or `landscape_id` fields. `identity_source` points to a checked bibliographic record/local origin, or is `null` if unknown. Populate citation fields from verified evidence.
+- `reading.record_path` is relative to the directory containing `papers.json`. Paths inside `reading.md` are relative to that Markdown file. Keep `reading` limited to this link; use source anchors in the Markdown record when detailed inspection evidence needs a cross-reference.
 
-For a new paper without a map, add verified `authors`, `year`, `doi`, and `urls` as available so a later landscape can reuse the identity. Do not create a parallel bibliography for existing mapped papers; reuse its BibTeX key.
+Without a landscape report, initialize the same shared registry in the registry-only form described in `../../research-landscape/references/output.md`. A later landscape extends it in place. Reuse existing BibTeX keys; do not maintain a second bibliography inside a paper folder.
 
 ## Synchronize a Newly Selected Paper with an Existing Landscape
 
-Apply this automatically when a paper becomes a reading target, including a previously standalone record resumed in a workspace that now has a landscape. Merely consulting a supporting source does not make it a new reading target. Respect an explicit request not to modify the landscape. Without an existing map, retain the standalone workflow; a full landscape search is not a prerequisite for reading.
+Apply this automatically when a paper becomes a reading target, including a previously standalone record resumed in a workspace that now has a landscape. Merely consulting a supporting source does not make it a new reading target. Respect an explicit request not to modify the landscape; keep progress in Markdown and state any deferred registry update rather than creating another metadata store. Without a landscape report, use the shared registry-only workflow; a full landscape search is not a prerequisite for reading.
 
 Read the existing map files and `../../research-landscape/references/output.md` before editing. Use the sibling skill's verification, comparison, and graph evidence standards for any assessment changes. Update the resolved map location, including legacy layouts, rather than creating a second map.
 
 1. **Resolve identity first.** Check identifiers, titles, authors, aliases, and versions across the registry and reading folders. Reuse the existing ID and BibTeX key for the same work; a new revision is not a new node. For a genuinely new work, reuse its standalone reading ID or allocate the next unused workspace-wide ID. Preserve existing IDs and user annotations.
-2. **Update `papers.json`.** Add the paper with verified citation metadata, versions, actual `read_level`, and source evidence with exact locators. Explain in `selection_reason` that it was selected for reading and how it relates to the research question. Assign only supported routes and roles; leave unresolved arrays empty and explain the gap rather than inventing a milestone or leader designation. Retain precise inspected scope in the evidence and link to the per-paper record.
-3. **Update `references.bib`.** Reuse or add one verified citation entry, with the same key in both JSON records. Use a minimal entry when metadata is incomplete; do not invent publication details.
+2. **Update `papers.json`.** Add the paper with verified citation metadata, versions, actual `read_level`, and key landscape evidence with exact locators. Explain in `selection_reason` that it was selected for reading and how it relates to the research question. Assign only supported routes and roles; leave unresolved arrays empty and explain the gap rather than inventing a milestone or leader designation. Keep the scope summary brief and link to `reading.md` for the detailed inspection record.
+3. **Update `references.bib`.** Reuse or add one verified citation entry, with the key stored in the shared registry entry. Use a minimal entry when metadata is incomplete; do not invent publication details.
 4. **Update `report.md`.** Add a concise paper entry with its ID, contribution or reading question, evidence level, route relevance or unresolved placement, and a relative link to its reading record. A supplementary “Papers added during reading” section is sufficient when the paper is not yet part of the core graph. Update affected route tables, comparisons, and graph nodes or edges only when evidence warrants them; do not force every reading target into the core graph.
 5. **Preserve scope and coverage.** Record the dated incremental addition and remaining gaps in the report or coverage limitations. Keep the original search date and cutoff unless a real scope/search update occurs; a single-paper lookup is not a refreshed field-wide search. Identify out-of-scope or post-cutoff reading additions separately, without using them to revise historical rankings or silently broadening the map.
-6. **Link both directions.** Once the registry entry exists, set `paper.json.landscape_id` to its shared ID and synchronize `bibtex_key`. Retain the checked identity source and detailed source inventory. Update the workspace README's reading index and relevant report links. Further reading updates the existing entry's evidence rather than adding a duplicate.
+6. **Link both directions.** Set the entry's `reading.record_path` and link back to the registry from `reading.md`, naming the paper ID. Keep the checked identity source in the registry and the detailed source inventory in `reading.md`. Update the workspace README's reading index and relevant report links. Further reading changes registry evidence only when it adds or corrects a landscape-relevant claim; routine progress stays in the reading record.
 7. **Validate and report.** Run `python3 <research-landscape-skill-dir>/scripts/validate.py <resolved-landscape-dir>` after edits, then check reading links and source/version consistency. Fix structural mistakes; if incomplete metadata or unresolved roles prevent validation, record the precise gap instead of fabricating values to pass. Briefly tell the user which paper was added and where. If identity cannot yet be resolved, record the pending synchronization in `reading.md` and complete it when the missing evidence becomes available.
 
 ## reading.md: Continuity, Not a Transcript
@@ -71,7 +48,7 @@ Read the existing map files and `../../research-landscape/references/output.md` 
 ## Goal and context
 - User's question and research-route connection, if known.
 - Background assumed for the current explanation.
-- Active source ID and exact version; link to paper.json and source.
+- Paper ID, active source ID, and exact version; link to the shared registry and source.
 
 ## Progress
 | Unit / source locator | What was explained or checked | Remaining gap |
@@ -90,9 +67,30 @@ One precise reading or reasoning step, including the passage or missing source.
 
 ## Session checkpoints
 - YYYY-MM-DD: What was actually discussed/inspected; what the user explicitly confirmed, if any.
+
+<a id="sources"></a>
+## Source inventory and inspection coverage
+
+<a id="s01"></a>
+### S01 — Source title
+- Role: target / appendix / erratum / prerequisite / baseline / follow_up / explanation / code.
+- Origin: source URL or local origin; local copy if available, relative to this file.
+- Version and known version date; access date; optional checksum.
+- Access: local / remote / unavailable. Inspection level: none / metadata / abstract / full_text.
+- Inspected sections: exact passages, figures, equations, tables, or pages actually checked.
+- Purpose and limitations: why used, version differences, remaining gaps.
+
+## Artifact inspection and local aids
+When relevant: source ID, pinned commit, inspected paths, execution status
+(not_run / ran / reproduced), commands, conditions, and observed results.
+Link ignored logs/extractions as optional local aids.
 ```
 
 Keep the current state succinct. Add a short checkpoint at a meaningful pause, rather than a log entry for every sentence. A useful stage label may be `orienting`, `reading`, `blocked`, or `paused`; none asserts mastery. Preserve resolved questions when they explain why an interpretation changed.
+
+Source IDs such as S01 are stable and paper-local; qualify cross-paper references as `P03/S01`. Name the active source in Goal and context, and do not repurpose an old ID for a revised version. Source inventory entries describe actual inspection, not presumed access. `local` requires an existing file; a URL alone does not establish `remote` access. For `full_text`, list only passages actually read; code inspection is distinct from paper inspection. Record unknown versions/dates explicitly, and do not infer publication dates from file metadata or checksums.
+
+Keep artifact commands, conditions, and result evidence in this record or linked durable notes. Use `reproduced` only for a specifically matched result; ignored logs are optional aids. Recheck local availability when resuming on another machine without erasing historical inspection records.
 
 ## notes.md: User-Selected Knowledge
 
@@ -135,12 +133,13 @@ For corrections, append a dated amendment identifying the old statement, replace
 
 Check that:
 
-1. Every local source path and README/reading/note link resolves from its containing file.
+1. Local sources marked available and README/reading/note links resolve from their containing files. Ignored scratch paths are clearly optional; durable reasoning does not depend on their presence in a fresh checkout.
 2. Paper, source, question, and note IDs are unique in their defined scope and every reference resolves.
 3. Source versions are consistent with locators; unavailable sources have no invented inspection coverage.
 4. Explicitly selected content is saved with status, significance, conditions, and evidence or a stated evidence gap.
 5. Open questions and a precise next step remain visible; no unsupported mastery or reproduction claim was added.
 6. Existing user annotations and stable IDs survive updates.
-7. With an existing landscape, the selected paper's registry entry, report entry, BibTeX key, and `landscape_id` agree, or a specific pending synchronization gap is recorded. Map edits have been structurally validated without treating validation as evidence of scientific correctness.
+7. The registry holds each paper's identity, concise landscape evidence, and reading link; detailed sources and inspection coverage are in `reading.md`. With a landscape report, its paper entry and BibTeX key agree with the registry, or a specific pending synchronization gap is recorded. Map edits have been structurally validated without treating validation as evidence of scientific correctness.
+8. Both paper and landscape `work/` directories are Git-ignored; durable notes, source provenance, and reproduction commands are retained outside them.
 
 These checks validate continuity and traceability, not the scientific truth of a paper.
