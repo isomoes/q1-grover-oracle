@@ -119,6 +119,8 @@ Dates below distinguish first repository release from formal publication; a repo
 
 **P03 / G03 — Implementing Grover oracles for quantum key search on AES and LowMC.** Samuel Jaques, Michael Naehrig, Martin Roetteler, Fernando Virdia. Initial ePrint **2019-10-03**; EUROCRYPT **2020**; **corrected 2023-06-07**. **Read: selected full text**, particularly §3.3, §6 and Table 9. Milestone and recommended baseline: executable predicates, pair-dependent resources and explicit estimator corrections. AES estimates were corrected; LowMC was not revised. §6.2 omits diffusion in attack estimates. [Paper](https://eprint.iacr.org/2019/1146), [artifact](https://github.com/microsoft/grover-blocks). Artifact metadata inspected; no reproduction.
 
+Reading session started **2026-09-28**: [reader-led record and source coverage](../papers/P03/reading.md). Primary metadata and abstract rechecked; prior full-text evidence and field-level assessments retained.
+
 ### Nonlinear synthesis and architectural turning points
 
 **P10 — Reducing the Cost of Implementing AES as a Quantum Circuit.** Brandon Langenberg, Hai Pham, Rainer Steinwandt. ePrint **2019-07-23**; later IEEE TQE **2020** publication uses the expanded title “Reducing the Cost of Implementing the Advanced Encryption Standard as a Quantum Circuit.” **Read: abstract.** Early joint S-box/key-expansion reduction; P03 §4.1 explicitly ports and compares its S-box. [Preprint](https://eprint.iacr.org/2019/854); publication identity corroborated by [P14's bibliography](https://cic.iacr.org/p/2/1/25). Bibliography here consistently cites the preprint identity.
