@@ -19,7 +19,7 @@ Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, 
 | Paper | Reading record | Saved notes | Reader-led status |
 |---|---|---|---|
 | P01 / G01 — Grover 1996 | [Summary, questions, and sources](papers/P01/reading.md) | [2026-09-15 notes](papers/P01/note.md) | Existing notes retained; awaiting the reader's chosen question |
-| P02 / G02 — Applying Grover's algorithm to AES | [Summary, questions, and sources; arXiv v1](papers/P02/reading.md) | [N01: reversible AES](papers/P02/notes.md#n01); [N02: in-place LUP tradeoffs](papers/P02/notes.md#n02); [N03: permutation-group S-box synthesis](papers/P02/notes.md#n03) | Q06–Q13 explanations recorded; latest: AES key-expansion prerequisites and Example 2; N03 saves the 9-qubit SubBytes method |
+| P02 / G02 — Applying Grover's algorithm to AES | [Summary, questions, and sources; arXiv v1](papers/P02/reading.md) | [N01: reversible AES](papers/P02/notes.md#n01); [N02: in-place LUP tradeoffs](papers/P02/notes.md#n02); [N03: permutation-group S-box synthesis](papers/P02/notes.md#n03) | Q06–Q19 explanations recorded; latest: accumulated quantum-gate operations versus current silicon integration scale |
 
 ## Later synthesis
 
