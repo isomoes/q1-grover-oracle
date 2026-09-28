@@ -2,9 +2,9 @@
 
 ## Read to Answer a Question
 
-Use the user's question to choose a path through the paper. An initial pass may inspect the abstract, introduction, contribution list, main result, figures, limitations, and conclusion to identify the technical core. This is orientation, not a completed deep reading. Then inspect the methods/proof/evidence relevant to the selected question.
+Use the reader's question to determine what to inspect. A paper ID alone authorizes resolving the paper and a brief account of what it does, not choosing questions or beginning a lesson. For a requested overview, inspect the relevant abstract/introduction/results at that scope. For a specific question, inspect the methods/proof/evidence needed to answer it. An old assistant-selected next step does not establish the reader's interest.
 
-Teach missing prerequisites just in time. Explain a concept at the simplest useful level, then return to the paper's exact notation and assumptions. Avoid replacing a difficult step with “it is obvious” or hiding it in a polished summary. If a step remains unresolved, identify the smallest missing link.
+Explain necessary prerequisites within the answer. Use the simplest useful level, then return to the paper's exact notation and assumptions. Avoid replacing a difficult step with “it is obvious.” If evidence is missing, state the gap without turning it into an unsolicited reading assignment.
 
 ## Choose Related Resources Deliberately
 
@@ -42,13 +42,8 @@ Read captions, footnotes, variants, and baseline provenance before using a table
 
 For the Q1 Grover-oracle topic, useful checks include the classical-query/local-quantum distinction; fixed-key versus superposed-candidate-key computation; encryption versus predicate versus phase oracle versus full iteration; comparison, marking, diffuser, and workspace cleanup; plaintext/ciphertext pair count; success probability; gate set; width versus T-depth versus full depth; and unitary versus measurement-assisted operations. These are topic-specific examples, not required sections for unrelated papers.
 
-## From Understanding to Judgment
+## Respond to the Reader's Understanding
 
-Use one focused exercise when helpful:
+When the reader offers an interpretation, preserve what is correct and explain any precise gap against the source. Attribute their wording separately from the assistant's reconstruction. If they ask to save it, make the note useful for reconstructing the reasoning later.
 
-- “Which assumption would this alternative violate?”
-- “Can you explain why this term appears without rereading the formula?”
-- “Does this table support the whole-system claim, or only the measured component?”
-- “What additional evidence would turn this candidate explanation into a supported conclusion?”
-
-If the user's paraphrase is partially correct, preserve the correct part and explain the precise gap. Record their demonstrated reasoning only when observed, and unresolved confusion without judgment. Saved notes should help the user reconstruct an argument later, not merely memorize a conclusion.
+Do not request a paraphrase, assign an exercise, test comprehension, or append a next question by default. Those activities belong only in explicitly requested practice or guided reading. Answering well does not require steering the reader's next move.

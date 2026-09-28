@@ -152,6 +152,8 @@ diffusion 本身不包含 AES 或密钥验证条件；哪些候选符合条件�
 
 ## 6. 后续阅读问题
 
+> 2026-09-28 整理说明：以下保留为旧笔记中的历史阅读建议，不作为当前任务清单。读者现在自行选择问题与阅读方向。
+
 按仓库[参考文献与阅读顺序](../../../docs/reference.md)继续阅读：
 
 1. **G02：*Applying Grover's Algorithm to AES: Quantum Resource Estimates*.** 重点查明明密文对如何选取，AES 如何可逆实现，以及相位标记和清理如何计入资源估算。

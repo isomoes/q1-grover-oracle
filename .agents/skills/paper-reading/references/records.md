@@ -40,33 +40,30 @@ Read the existing map files and `../../research-landscape/references/output.md` 
 6. **Link both directions.** Set the entry's `reading.record_path` and link back to the registry from `reading.md`, naming the paper ID. Keep the checked identity source in the registry and the detailed source inventory in `reading.md`. Update the workspace README's reading index and relevant report links. Further reading changes registry evidence only when it adds or corrects a landscape-relevant claim; routine progress stays in the reading record.
 7. **Validate and report.** Run `python3 <research-landscape-skill-dir>/scripts/validate.py <resolved-landscape-dir>` after edits, then check reading links and source/version consistency. Fix structural mistakes; if incomplete metadata or unresolved roles prevent validation, record the precise gap instead of fabricating values to pass. Briefly tell the user which paper was added and where. If identity cannot yet be resolved, record the pending synchronization in `reading.md` and complete it when the missing evidence becomes available.
 
-## reading.md: Continuity, Not a Transcript
+## reading.md: Minimal Reader-Led Record
+
+Keep three things easy to find: what the paper does, questions raised or adopted by the reader, and links to insights they selected for notes. Retain source provenance below them. Do not generate questions to fill the record, require a next step, or maintain a comprehension checklist. A bare paper selection can leave the question section empty. Record factual verification caveats with their sources, not as tasks assigned to the reader.
 
 ```markdown
 # Pxx — Original paper title
 
-## Goal and context
-- User's question and research-route connection, if known.
-- Background assumed for the current explanation.
-- Paper ID, active source ID, and exact version; link to the shared registry and source.
+## What the paper does
+One short source-supported paragraph about its problem, approach, and contribution.
+Paper ID, active source ID, and exact version; link to the shared registry and source.
 
-## Progress
-| Unit / source locator | What was explained or checked | Remaining gap |
-|---|---|---|
+## Reader's questions
+Only questions the reader actually raised or explicitly adopted. If none, say so briefly.
+For each, retain its wording or faithful paraphrase, a stable Q01-style ID when useful,
+and a concise answer/status with source locators. Attribute assistant explanations.
+Do not reuse retired IDs from earlier assistant-generated questions.
 
-## Working understanding
-Concise explanations needed to resume, with source IDs and locators.
-Label author claims, assistant reconstructions, checks, and user interpretations.
-Link saved notes rather than duplicating their full contents.
+## Selected notes
+Link existing notes and stable note IDs. If none have been selected, say so.
+Preserve the reader's own phrasing with attribution; do not label assistant prose as their understanding.
 
-## Open questions
-Give each question a stable Q01-style ID; record resolution and evidence when answered.
-
-## Next step
-One precise reading or reasoning step, including the passage or missing source.
-
-## Session checkpoints
-- YYYY-MM-DD: What was actually discussed/inspected; what the user explicitly confirmed, if any.
+## Session context (optional)
+Only details needed to resume the reader's actual request: e.g., their chosen passage,
+an unfinished answer, or a next step they explicitly requested. Omit if unnecessary.
 
 <a id="sources"></a>
 ## Source inventory and inspection coverage
@@ -86,15 +83,15 @@ When relevant: source ID, pinned commit, inspected paths, execution status
 Link ignored logs/extractions as optional local aids.
 ```
 
-Keep the current state succinct. Add a short checkpoint at a meaningful pause, rather than a log entry for every sentence. A useful stage label may be `orienting`, `reading`, `blocked`, or `paused`; none asserts mastery. Preserve resolved questions when they explain why an interpretation changed.
+Keep the current state succinct; source inspection is not a measure of reader progress. Preserve resolved reader questions when they explain why an interpretation changed. When cleaning legacy records, remove assistant-invented questions and reading plans from active sections. Preserve user-selected notes and source inventories; mark historical material of uncertain question provenance as historical rather than silently treating it as the reader's current agenda.
 
-Source IDs such as S01 are stable and paper-local; qualify cross-paper references as `P03/S01`. Name the active source in Goal and context, and do not repurpose an old ID for a revised version. Source inventory entries describe actual inspection, not presumed access. `local` requires an existing file; a URL alone does not establish `remote` access. For `full_text`, list only passages actually read; code inspection is distinct from paper inspection. Record unknown versions/dates explicitly, and do not infer publication dates from file metadata or checksums.
+Source IDs such as S01 are stable and paper-local; qualify cross-paper references as `P03/S01`. Name the active source near the paper summary, and do not repurpose an old ID for a revised version. Source inventory entries describe actual inspection, not presumed access. `local` requires an existing file; a URL alone does not establish `remote` access. For `full_text`, list only passages actually read; code inspection is distinct from paper inspection. Record unknown versions/dates explicitly, and do not infer publication dates from file metadata or checksums.
 
 Keep artifact commands, conditions, and result evidence in this record or linked durable notes. Use `reproduced` only for a specifically matched result; ignored logs are optional aids. Recheck local availability when resuming on another machine without erasing historical inspection records.
 
 ## notes.md: User-Selected Knowledge
 
-Create on the first save request; do not pre-populate “important” notes on behalf of the user. Use explicit anchors so note links survive changes to headings or output language.
+Create on the first save request; do not pre-populate “important” notes on behalf of the user. Use explicit anchors so note links survive changes to headings or output language. The template below lists useful fields, not mandatory headings: a short insight with the reader's interpretation, relevant qualifications, and a source citation can be enough. Omit empty motivation and open-issue sections rather than inventing content.
 
 ```markdown
 # Pxx — Selected notes
@@ -137,7 +134,7 @@ Check that:
 2. Paper, source, question, and note IDs are unique in their defined scope and every reference resolves.
 3. Source versions are consistent with locators; unavailable sources have no invented inspection coverage.
 4. Explicitly selected content is saved with status, significance, conditions, and evidence or a stated evidence gap.
-5. Open questions and a precise next step remain visible; no unsupported mastery or reproduction claim was added.
+5. Recorded questions and any next step came from the reader or were explicitly adopted by them; no invented agenda or unsupported mastery/reproduction claim was added. Empty question sections are valid.
 6. Existing user annotations and stable IDs survive updates.
 7. The registry holds each paper's identity, concise landscape evidence, and reading link; detailed sources and inspection coverage are in `reading.md`. With a landscape report, its paper entry and BibTeX key agree with the registry, or a specific pending synchronization gap is recorded. Map edits have been structurally validated without treating validation as evidence of scientific correctness.
 8. Both paper and landscape `work/` directories are Git-ignored; durable notes, source provenance, and reproduction commands are retained outside them.
