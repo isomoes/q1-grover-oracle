@@ -2,6 +2,8 @@
 
 Use these as compact templates, not quotas. Generated prose follows the user's language; filenames, JSON keys, and enumerated values remain as specified. Never fill templates with invented facts. Use `null` or an explicit unresolved statement when information is unknown.
 
+Apply the skill's Markdown math rendering rules to every saved record: ordinary text or readable Unicode for inline symbols, and `$$` on separate lines for display math, with blank lines around display blocks. Keep each equation body on one physical source line; never leave `=` on its own line, where Markdown may treat it as a heading marker. Avoid inline `$...$` unless the reader confirms support, and avoid `\(...\)` and `\[...\]`. Do not put equations in code formatting unless documenting their source syntax. Check delimiters before saving; persisted notes should render as clearly as chat replies.
+
 ## Shared Registry: landscape/papers.json
 
 Use the matching object in the shared registry's `papers` array. Keep identity, aliases, citation metadata, versions, routes, `read_level`, a brief scope summary, and key landscape evidence on that object. Add only a reading-record link when a reading session starts. Detailed source inventories, inspected sections, active source, artifact records, and reading context belong in `reading.md`. Do not create a per-paper metadata file or copy the reading record into the registry. Existing metadata is inherited context until checked.
@@ -71,8 +73,8 @@ an unfinished answer, or a next step they explicitly requested. Omit if unnecess
 <a id="s01"></a>
 ### S01 — Source title
 - Role: target / appendix / erratum / prerequisite / baseline / follow_up / explanation / code.
-- Origin: source URL or local origin; local copy if available, relative to this file.
-- Version and known version date; access date; optional checksum.
+- Origin: source URL or local origin; shared local copy if available, e.g. ../../sources/arxiv_1512.04965v1.pdf, relative to this file.
+- Version and known version date; access date; SHA256 for a retained source file.
 - Access: local / remote / unavailable. Inspection level: none / metadata / abstract / full_text.
 - Inspected sections: exact passages, figures, equations, tables, or pages actually checked.
 - Purpose and limitations: why used, version differences, remaining gaps.
@@ -86,6 +88,8 @@ Link ignored logs/extractions as optional local aids.
 Keep the current state succinct; source inspection is not a measure of reader progress. Preserve resolved reader questions when they explain why an interpretation changed. When cleaning legacy records, remove assistant-invented questions and reading plans from active sections. Preserve user-selected notes and source inventories; mark historical material of uncertain question provenance as historical rather than silently treating it as the reader's current agenda.
 
 Source IDs such as S01 are stable and paper-local; qualify cross-paper references as `P03/S01`. Name the active source near the paper summary, and do not repurpose an old ID for a revised version. Source inventory entries describe actual inspection, not presumed access. `local` requires an existing file; a URL alone does not establish `remote` access. For `full_text`, list only passages actually read; code inspection is distinct from paper inspection. Record unknown versions/dates explicitly, and do not infer publication dates from file metadata or checksums.
+
+Store original source copies in the shared workspace-level `sources/` folder, following `../../research-landscape/references/workspace.md`. Before acquiring a copy, check identifiers, versions, and existing paths; compare SHA256 for imported files and suspected duplicates. Several papers may assign their own source IDs to one shared file. Keep each record's role, origin, version, and inspection coverage explicit; sharing a file does not transfer inspection status. On migration, rebase source links in records, notes, and registry evidence without changing IDs, locators, or reader-authored content.
 
 Keep artifact commands, conditions, and result evidence in this record or linked durable notes. Use `reproduced` only for a specifically matched result; ignored logs are optional aids. Recheck local availability when resuming on another machine without erasing historical inspection records.
 
@@ -130,7 +134,7 @@ For corrections, append a dated amendment identifying the old statement, replace
 
 Check that:
 
-1. Local sources marked available and README/reading/note links resolve from their containing files. Ignored scratch paths are clearly optional; durable reasoning does not depend on their presence in a fresh checkout.
+1. Local sources marked available and README/reading/note links resolve from their containing files. Newly retained originals use the shared `sources/` folder, checksums match, and verified duplicates reuse one copy while distinct versions remain separate. Ignored scratch paths are clearly optional; durable reasoning does not depend on their presence in a fresh checkout.
 2. Paper, source, question, and note IDs are unique in their defined scope and every reference resolves.
 3. Source versions are consistent with locators; unavailable sources have no invented inspection coverage.
 4. Explicitly selected content is saved with status, significance, conditions, and evidence or a stated evidence gap.

@@ -46,7 +46,7 @@ Stop when each major route has a historical anchor, a key turning point, and rec
 - Give reasons and sources for every pioneering, key, or leading designation. Prefer support from both the original paper and a later survey/paper for claims of being "first." Otherwise use "early representative" or "foundational candidate" rather than forcing a single origin.
 - Locate key evidence for performance, theorem optimality, and research lineage in the original section, table, theorem, references, or dated version notes. With abstract-only evidence, use "the authors claim" or "candidate" rather than asserting cross-paper SOTA.
 - For numerical comparisons, record the task, dataset/instances, metric direction, units, assumptions, resource constraints, and versions. If conditions differ, mark results as not directly comparable rather than applying percentages or ranking across models.
-- Prefer open HTML when full text is needed. For PDF downloads or reading, use the available PDF skill and aPaper download tools, downloading only material essential to verification.
+- Prefer open HTML when full text is needed. Before downloading, check the workspace-level `sources/` folder and existing source inventories for the same identifier and version. Reuse matching copies and retain new originals in this shared folder, following the naming and checksum-based duplicate checks in `references/workspace.md`. For PDF downloads or reading, use the available PDF skill and aPaper download tools, downloading only material essential to verification.
 
 ## 4. Synthesize Routes and Leading Results
 
@@ -80,7 +80,7 @@ Deliver:
 2. `papers.json`: Search dates and coverage, papers, routes, edges, sources, and structured comparison records.
 3. `references.bib`: Verified core-paper bibliography with keys matching the JSON.
 
-Maintain the workspace root's `README.md` with links to the map and existing paper-reading records. For a user who wants to understand a selected paper in depth, hand off to `paper-reading` with the workspace root, paper ID, exact version, route context, and unresolved reading question. That skill stores reading materials under the same root's `papers/<paper-id>/`.
+Maintain the workspace root's `README.md` with links to the map, shared sources, and existing paper-reading records. For a user who wants to understand a selected paper in depth, hand off to `paper-reading` with the workspace root, paper ID, exact version, route context, and unresolved reading question. That skill stores reading records under the same root's `papers/<paper-id>/` and original source copies in its shared `sources/` folder.
 
 Run `python3 <skill-dir>/scripts/validate.py <landscape-dir>` against the directory containing the three map files to check structure, reference IDs, and file consistency. It does not verify paper authenticity or scholarly judgments. Separately review key evidence, temporal boundaries, duplicate versions, and unjustified "best" claims. Check Mermaid label escaping and the edge legend, and preview the graph when possible.
 

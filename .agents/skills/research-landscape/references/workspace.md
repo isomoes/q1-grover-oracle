@@ -4,7 +4,7 @@ This is the common storage contract for `research-landscape` and `paper-reading`
 
 ## Resolve the Root
 
-1. Honor the user's explicit workspace. Reuse an existing workspace root when the supplied file is inside its `landscape/` or `papers/` directory.
+1. Honor the user's explicit workspace. Reuse an existing workspace root when the supplied file is inside its `landscape/`, `papers/`, or shared `sources/` directory.
 2. Otherwise use `apaper/`, relative to the project root. One project covers one research direction, so do not add a topic/slug layer or ask the user to choose one. Inspect existing outputs before creating the workspace.
 3. In an older `research-landscape/<topic-slug>/` or `research/<topic-slug>/` layout, read the existing files first. On a requested migration, move the landscape deliverables to `apaper/landscape/` and existing reading records, sources, intermediates, and synthesis to the corresponding directories under `apaper/`. Fix inbound and outbound relative links (including JSON source URLs), and preserve IDs and user edits. Do not merge conflicting destination files blindly.
 4. If migration is not requested, reuse the legacy root: keep map files in their existing location (at the root or in `landscape/`) and use `papers/` directly under that root. Record this layout in the workspace README and use actual paths in links. Do not create a duplicate map in the new default location.
@@ -19,11 +19,11 @@ apaper/
 │   ├── papers.json                # Identities, versions, routes, key evidence, reading links
 │   ├── references.bib
 │   └── work/                      # Local search logs and scratch material; Git-ignored
+├── sources/                       # Shared original papers and supporting materials; one copy per source version
 ├── papers/
 │   └── P03/                       # Stable paper ID, not a mutable title
 │       ├── reading.md             # Sources, inspected sections, context, progress, questions
 │       ├── notes.md               # User-selected knowledge; created on first save
-│       ├── sources/               # Original paper versions and supporting materials
 │       └── work/                  # Local extractions, page images, scratch; Git-ignored
 └── synthesis/                     # Optional cross-paper comparisons and concepts
 ```
@@ -32,7 +32,17 @@ Create directories and files as needed, not an empty folder tree for every candi
 
 Keep both `work/` locations out of version control. For the default layout, add `/apaper/papers/*/work/` and `/apaper/landscape/work/` to the repository's `.gitignore`; adapt these paths for explicit or legacy roots. If scratch files are already tracked, remove only those files from the Git index while preserving local copies. Durable conclusions, derivations, and reproduction commands belong in reading notes or synthesis; ignored files may be linked as optional local aids, but must not be the only evidence needed to understand a tracked conclusion. A fresh checkout need not contain these caches.
 
-Within `sources/`, keep version-distinct filenames (for example, `paper-2023-06-07.pdf`); use a short descriptive filename when the date is unknown. Do not invent dates. Record source IDs, URLs, versions, actual local paths, and detailed inspection coverage in `reading.md`, using `../../paper-reading/references/records.md`. Paths in that record are relative to its paper folder. Registry paths are relative to the directory containing `papers.json`, including `reading.record_path` (for example, `../papers/P03/reading.md`). External code repositories may be linked by pinned commit instead of copied in full. Record locally inspected code files and whether anything was run in the reading record.
+## Shared Source Storage and Duplicate Checks
+
+Keep retained original papers, supplements, errata, and supporting materials together in the workspace-level `sources/` folder (`apaper/sources/` by default), not in per-paper source folders. Keep files directly in this folder so the collection is easy to inspect. Multiple reading records can link to the same file; a supporting source does not need a new paper ID just to be stored. Existing project notes and code may be linked in place rather than copied into this folder.
+
+- Before downloading or importing, check the shared folder and existing source inventories for a matching identifier, origin, and version. Reuse an available matching copy. Do not infer identity from a filename alone.
+- Prefer filenames containing a stable identifier and explicit version, such as `arxiv_1512.04965v1.pdf` or `fips-197-upd1.pdf`. Otherwise use a short descriptive title plus a known edition/date. Preserve clear existing names; do not invent dates or use a paper-local S01 label as a globally unique filename.
+- Compare SHA256 checksums when importing files or checking suspected duplicates. Reuse byte-identical copies and retain all relevant origins in the reading records. Different checksums require identity/version inspection, not automatic deletion. Preserve distinct revisions, publication versions, supplements, and annotated copies under distinct names; never overwrite a conflicting filename blindly.
+- Record source IDs, origins, versions, shared local paths, checksums for retained files, and actual inspection coverage in `reading.md`, using `../../paper-reading/references/records.md`. Source IDs remain paper-local even when records share a file. A shared file does not imply shared inspection coverage.
+- Paths in reading records and notes are relative to their containing file (for example, `../../sources/arxiv_1512.04965v1.pdf`). Registry paths are relative to the directory containing `papers.json`: source links use `../sources/<filename>`, and `reading.record_path` uses `../papers/P03/reading.md`. External code repositories may be linked by pinned commit instead of copied in full. Record locally inspected code files and whether anything was run in the reading record.
+
+For a requested migration of legacy `papers/<id>/sources/` folders, inventory and checksum the files first, then move them to the shared folder. Consolidate only verified duplicates, preserving version distinctions and provenance. Rebase every affected Markdown and JSON link, preserve paper/source/note IDs and user edits, verify file checksums and link targets, and remove only empty old source directories. Keep extraction and rendering caches in the paper's Git-ignored `work/` folder. If migration is not requested, honor existing links and reuse legacy copies; use the shared folder for newly retained sources and document any remaining legacy locations in the workspace README.
 
 ## Identity and Ownership
 
