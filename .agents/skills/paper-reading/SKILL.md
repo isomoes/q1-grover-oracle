@@ -1,7 +1,7 @@
 ---
 name: paper-reading
 description: >-
-  Help the user deeply understand a specific academic paper through source-grounded, interactive reading of its methods, assumptions, derivations, evidence, and limitations, consulting related papers, appendices, errata, and code as needed. Use when the user wants to read a paper together, understand a theorem/equation/figure, follow up a paper from a research landscape or roadmap, resume a reading session, judge an AI-generated claim against the paper, or save important insights as traceable paper notes. Keep reading progress, sources, intermediate work, and user-selected notes in the same project-level apaper/ workspace as research-landscape. Also works without an existing map. Not for field-wide literature mapping alone, download-only tasks, isolated translation, or manuscript polishing.
+  Help the user deeply understand a specific academic paper through source-grounded, interactive reading of its methods, assumptions, derivations, evidence, and limitations, consulting related papers, appendices, errata, and code as needed. Use when the user wants to read a paper together, understand a theorem/equation/figure, follow up a paper from a research landscape or roadmap, resume a reading session, judge an AI-generated claim against the paper, or save important insights as traceable paper notes. Keep reading progress, sources, intermediate work, and user-selected notes in the same project-level apaper/ workspace as research-landscape, and add newly selected papers to an existing landscape. Also works without an existing map. Not for field-wide literature mapping alone, download-only tasks, isolated translation, or manuscript polishing.
 compatibility: Local file access; optional aPaper MCP and web retrieval for source acquisition; use the available PDF skill for PDF work. Shares the workspace contract with the sibling research-landscape skill.
 ---
 
@@ -17,6 +17,7 @@ Read `../research-landscape/references/workspace.md` before choosing output path
 
 - Locate the workspace README, landscape report and paper registry if present, then the target paper's existing `paper.json`, `reading.md`, and `notes.md`. Reuse the paper ID, aliases, version information, and prior open questions. Read existing records before editing; do not restart a session from an unrelated overview.
 - If the user supplies an ID, title, URL, or local file, resolve that paper directly. Ask a short question only if identity or the intended topic cannot be resolved. If no paper is chosen but a landscape exists, recommend one route-appropriate baseline with a reason and a concrete starting question. Do not fetch a pile of papers before the choice is clear.
+- If an existing landscape does not contain the selected paper, add it as part of starting the reading session; a separate request to update the landscape is unnecessary. Follow the incremental synchronization procedure in `references/records.md` once identity and available evidence have been checked. Reuse an existing standalone reading ID if present, and keep the reading discussion moving while resolving any missing metadata.
 - Extract the user's goal and background from the conversation. Useful goals include reconstructing a derivation, understanding an implementation, evaluating a comparison, or checking a proposed research claim. State a reasonable starting level and proceed; ask about prerequisites only when needed to explain the next step.
 - A landscape is helpful, not required. Without one, create a minimal project workspace and a paper record using the shared identity rules. Do not perform a full landscape search merely to begin reading.
 - Keep reading stage, source inspection, and user understanding distinct. Prior `full_text` evidence may cover only selected sections. Record what was actually inspected and what the user has explicitly explained or confirmed; silence is not evidence of mastery.
@@ -80,12 +81,13 @@ After saving, say briefly what was saved and give the file path and note ID. Avo
 
 At a meaningful checkpoint, update the per-paper record and the workspace README's reading index. Record the next question at sufficient precision to resume (for example, the unresolved transition from one named equation to another), and any version or access issue still blocking it.
 
-If reading changes a landscape assessment, add the evidence and precise inspected scope to the relevant paper record. Substantive changes to route lineage, comparisons, or leaders need the landscape workflow's evidence standards; writing a note alone is not a reason to change the map.
+Synchronize newly selected papers and verified reading evidence with the existing landscape using `references/records.md`, even if no field-level assessment changes. Substantive changes to route lineage, comparisons, or leaders need the landscape workflow's evidence standards; registration alone does not establish importance or lineage.
 
 Before finishing:
 - Check local paths, source IDs, exact version/locator pairs, and note IDs; confirm referenced local files exist.
 - Ensure supported claims are distinguishable from author claims, reconstructions, hypotheses, and unresolved questions.
 - Confirm saved selections are present without overwriting prior notes; avoid recording unobserved comprehension or reproduction.
 - Keep all retained artifacts under the resolved workspace root and update its navigation links.
+- When a landscape exists, confirm the selected paper is registered and its report entry, bibliography key, and reading links agree; run the landscape validator after map edits. Record any unresolved synchronization gap explicitly.
 
 Finish in the user's language with the current takeaway, what was saved (if anything), and the next reading point. Do not repeat a full reading report in chat unless requested.
