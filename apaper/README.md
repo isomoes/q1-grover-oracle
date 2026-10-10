@@ -20,7 +20,7 @@ Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, 
 |---|---|---|---|
 | P01 / G01 — Grover 1996 | [Summary, questions, and sources](papers/P01/reading.md) | [2026-09-15 notes](papers/P01/note.md) | Existing notes retained; awaiting the reader's chosen question |
 | P02 / G02 — Applying Grover's algorithm to AES | [Summary, questions, and sources; arXiv v1](papers/P02/reading.md) | [N01: reversible AES](papers/P02/notes.md#n01); [N02: in-place LUP tradeoffs](papers/P02/notes.md#n02); [N03: permutation-group S-box synthesis](papers/P02/notes.md#n03) | Q06–Q19 explanations recorded; latest: accumulated quantum-gate operations versus current silicon integration scale |
-| P03 / G03 — Implementing Grover oracles for quantum key search on AES and LowMC | [Summary, questions, and sources; corrected 2023 ePrint](papers/P03/reading.md) | None selected | Reading started 2026-09-28; primary record and abstract checked; corrected PDF downloaded and checksum verified; awaiting the reader's chosen question |
+| P03 / G03 — Implementing Grover oracles for quantum key search on AES and LowMC | [Summary, questions, and sources; corrected 2023 ePrint](papers/P03/reading.md) | [N01：振幅放大与测量成功率](papers/P03/notes.md#n01)；[N02：伪匹配密钥与旋转角](papers/P03/notes.md#n02) | Q01–Q10 answered; latest: fixed-prefix initialization and a suffix-only diffuser explain how to restrict each machine to its assigned subset |
 
 ## Later synthesis
 
