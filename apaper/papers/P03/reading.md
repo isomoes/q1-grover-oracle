@@ -110,25 +110,31 @@ $$
 - 助手例子：4 比特密钥，4 台机器；分别固定 00、01、10、11 前缀，各自只叠加两个后缀比特，搜索 4 个候选。不是把密码算法的密钥长度变成 2 比特。
 - 来源：P03/S02，2023-06-07 修正版，§2.3，第 7 页及 §3.5，第 14 页；子空间初始化及后缀 diffuser 是助手从 Grover 公式作出的实现解释。未检查或执行作者的搜索空间划分代码。
 
-### Q11 — §3.4 的分解不唯一，以及不能稳定获得更稀疏分解，是什么意思？
+### Q11 — §3.1 中 “allocate auxiliary qubits” 是什么意思？
+
+- 提问日期：2026-10-13。读者澄清所问术语是 auxiliary qubits，而非 arbitrary qubit。
+- 回答：auxiliary qubits（辅助量子比特，也称 ancilla）是电路临时使用的工作空间，用于保存中间计算结果或辅助实现量子门。§3.1 的 allocate 指向电路提供初始化为 |0⟩ 的辅助比特，不是要求运行时制造新硬件。辅助比特可以在计算过程中与数据纠缠；论文要求将其恢复为 |0⟩ 后再释放复用，此时它与计算态不再纠缠。直接测量或重置仍纠缠的辅助比特一般会破坏搜索相干性；特定的测量辅助构造需要单独分析。
+- 来源：P03/S02，2023-06-07 修正版，§3.1，第 8 页，辅助比特分配与释放段落；本次检查现有 PDF 提取文本。工作空间用途和硬件分配区别为助手解释，不声称审计具体 Q# API 或执行代码。
+
+### Q12 — §3.4 的分解不唯一，以及不能稳定获得更稀疏分解，是什么意思？
 
 - 提问日期：2026-10-16。读者询问 “but it is not clear whether sparser decompositions can be consistently obtained with any particular technique” 的含义。
 - 回答：这里是同一个可逆二元线性映射矩阵的 PLU 分解；不同消元/主元选择可能给出不同的 P、L、U。更稀疏指 L、U 中需要实现的非对角 1 更少，在作者的直接三角矩阵实现下对应更少 CNOT。分解不唯一不意味着已知一种方法能稳定地产生更稀疏的分解；作者表达的是方法上的未确定性，不是证明这种方法不存在，也不是声称采用的分解最优。他们实际采用 TB97 Algorithm 21.1、SageMath 8.1 的实现。门数减少也不自动保证深度最小。
 - 来源：P03/S02，2023-06-07 修正版，§3.4，第 12 页全文及第 13 页 Figure 3 说明；2026-10-16 直接提取本地 PDF 文本检查。非对角 1 与门数的联系为助手对该直接实现的解释；未检查 SageMath 或作者代码，也未验证稀疏分解算法。
 
-### Q12 — §3.5 的 G-cost 和 DW-cost 讲了什么？
+### Q13 — §3.5 的 G-cost 和 DW-cost 讲了什么？
 
 - 提问日期：2026-10-16。读者要求解释两种成本模型。
 - 回答：G-cost 统计所有并行机器累计执行的门数，对应不向空闲存储收费的被动存储模型；DW-cost 用电路深度乘宽度近似量子比特占用时间，对应每个时间步都需维护/纠错的主动存储模型。作者以最大宽度乘总深度计费，而非逐层活跃宽度求和；可选择只计 T 门或所有门，需保持口径一致。内并行 S 台机器时，每台轮数约为 c_p√(N/S)，总 G-cost 约为 c_p√(NS)G_G，总 DW-cost 约为 c_p√(NS)G_D G_W。固定总深度上限、采用论文的近似与搜索假设时，式 (9)–(10) 分别给出优化单轮 G_D G_G 与 G_D²G_W 的目标，不能仅优化门数或宽度。
 - 来源：P03/S02，2023-06-07 修正版，§3.5，第 13–14 页，成本模型定义及式 (5)–(10)；使用 2026-10-16 已提取并检查的本地 PDF 文本。解释不建立未知解数或所有并行策略下的普遍最优性，也不把逻辑电路成本等同于物理硬件报价。
 
-### Q13 — 为什么需要 S 台 inner 并行；相比 outer 并行是否改善成功率和总门成本？
+### Q14 — 为什么需要 S 台 inner 并行；相比 outer 并行是否改善成功率和总门成本？
 
 - 提问日期：2026-10-16。读者将并行理解为以宽度换深度的 trade-off，并询问 inner 相对 outer 是否有实际提升。
 - 回答：这种 trade-off 理解正确，但论文的 inner 是不相交密钥子空间的多机搜索，不是单次 oracle 内部的电路并行。若单机无法在 MAXDEPTH 内达到目标成功率，多机用于满足深度约束；无该约束时不必为了降低总门数而并行。固定单轮成本下，inner 与 outer 都仅提供 √S 量级的深度加速，没有渐近量级上的差异，也不降低相对于无约束单机的总查询数。但同 S、同 j 下成功率不同：唯一解、均分空间时 inner 为 sin²((2j+1)arcsin√(S/N))，outer 为 1−[1−sin²((2j+1)arcsin(1/√N))]^S。在 j≈(π/4)√(N/S)、大规模近似下，inner 近 1，outer 在大 S 时近 0.915。因此固定高成功率时 inner 可节省常数因子的机器或轮数/门成本。另有条件性优势：分区减小目标所在子集的伪匹配概率，允许减少 oracle 用的明密文对 r，进而可能降低单轮门数/深度；需要额外经典验证，不能视作无条件消除伪匹配。§3.5 的 √S 成本增长默认单轮资源固定，改变 r 后应重新估算。
 - 来源：P03/S02，2023-06-07 修正版，§2.2 第 6 页深度限制，§2.3 第 7–8 页两类并行及式 (3)–(4)，§3.5 第 13–14 页。2026-10-16 新检查 §2.2 第 6 页与 §2.3 全文的本地 PDF 提取文本。inner 精确概率式为助手从唯一解 Grover 公式重写；不主张所有轮数下的普遍优势或已复现资源表。
 
-### Q14 — 并行 Grover 结果汇总的通信时间和式 (11) 如何推导？
+### Q15 — 并行 Grover 结果汇总的通信时间和式 (11) 如何推导？
 
 - 提问日期：2026-10-16。读者询问 “Communication cost to assemble the results in parallel Grover” 段中的公式。
 - 回答：二叉树的并发汇总使顺序依赖层数为 O(log S)，不是 S；二维布局中每台机器占地按 G_W 缩放，总占地按 S G_W 缩放，根到叶的 H-tree 路径长度为 O(√(S G_W))。将几何与传播速度换算进 c_S 后，通信时间为 O(log S)+c_S√(S G_W) 个门周期。忽略对数项，搜索深度为 A/√S，其中 A=c_p 2^(k/2)G_D；通信深度为 B√S，其中 B=c_S√G_W。二者相等给出交叉机器数 S*=A/B=2^(k/2)c_pG_D/(c_S√G_W)，共同尺度为 √(AB)=2^(k/4)√(c_pc_SG_D√G_W)，即式 (11)。这是固定单轮电路、二维布局和传播模型下的尺度估算，不是无条件量子搜索下界；严格相加的搜索与末尾通信在该点约为 2√(AB)，论文式 (11) 表示平衡尺度/主导项，而非含全部常数的精确端到端时间。要使通信远小于搜索，应取 S 远小于交叉值，而非只要求不超过。
@@ -138,7 +144,7 @@ $$
 
 - [N01 — 振幅放大不等于测量必然成功](notes.md#n01)：2026-10-10，按读者要求用中文保存；包括读者关于测量成功概率的理解、提前测量与重启的区别，以及“满足条件的候选”不一定是原始秘密密钥的限制。
 - [N02 — 伪匹配密钥数量与 Grover 旋转角的关系](notes.md#n02)：2026-10-10，按读者要求保存；固定 N 时 M 越大则 θ 和每轮旋转角 2θ 越大，区分找到任一匹配密钥与恢复原始秘密密钥。
-- [N03 — PLU 分解不唯一，不等于已知如何稳定得到更稀疏的分解](notes.md#n03)：2026-10-16，按读者要求保存 Q11 的问题与解释，保留直接实现的门数联系及非最优性限制。
+- [N03 — PLU 分解不唯一，不等于已知如何稳定得到更稀疏的分解](notes.md#n03)：2026-10-16，按读者要求保存 Q12 的问题与解释，保留直接实现的门数联系及非最优性限制。
 
 <a id="sources"></a>
 ## Source inventory and inspection coverage
@@ -164,10 +170,11 @@ $$
 - SHA256: `e1b693ed4e5ec428258fc324f969ca565f7e53f460992fcb68a9f61ca36af4b8`. Compared against all existing shared PDFs; no byte-identical duplicate found.
 - Inspection: full_text, selected sections only. On 2026-10-09, inspected §2.1 in full and the opening of §2.2 through the Boolean key-search predicate and spurious-key paragraph, printed/viewer p. 4; formulas visually checked against the rendered PDF page. On 2026-10-10, inspected §2.2's “Depth constraints for cryptanalysis” and “Repeated measurements,” printed/viewer p. 6, including a visual formula check, and the extracted text of §2.2 Remark 2 on p. 7. The intervening spurious-key distribution analysis on p. 5 was not newly audited. Historical selected-section coverage is recorded below. No full-paper proof audit or resource reproduction.
 - Additional text inspection on 2026-10-10 for Q09: §2.3, pp. 7–8; §3.5 cost-metric definitions and inner-parallelization derivations, pp. 13–14; §6 opening and §6.1's pair-count discussion/Figure 8 caption, pp. 26–27; §6.2's “Cost estimates under a depth limit,” p. 29; Table 14/15 captions and column descriptions, pp. 33–34. Used existing PDF extraction; numerical table entries and full derivation details were not audited.
-- 2026-10-16，Q11：检查 §3.4 全文（第 12 页）与 Figure 3 说明（第 13 页）的本地 PDF 提取文本；未检查所引分解算法或执行实现。
-- 2026-10-16，Q12：检查 §3.5 第 13–14 页成本模型定义及式 (5)–(10) 的本地 PDF 提取文本；未执行资源估计或审计后续数值表格。
-- 2026-10-16，Q13：检查 §2.2 第 6 页深度限制与 §2.3 第 7–8 页全文，包含式 (3)–(4)；使用本地 PDF 提取文本，未复现攻击或资源表。
-- 2026-10-16，Q14：检查 §3.5 第 15 页通信成本段与式 (11)，以及第 16 页接续段的本地 PDF 提取文本；未核验数值或硬件布局。
+- 2026-10-13，Q11：检查 §3.1 第 8 页辅助比特分配与释放段落（|0⟩ 初始化及恢复后释放）的本地 PDF 提取文本；未检查编译器或 API。
+- 2026-10-16，Q12：检查 §3.4 全文（第 12 页）与 Figure 3 说明（第 13 页）的本地 PDF 提取文本；未检查所引分解算法或执行实现。
+- 2026-10-16，Q13：检查 §3.5 第 13–14 页成本模型定义及式 (5)–(10) 的本地 PDF 提取文本；未执行资源估计或审计后续数值表格。
+- 2026-10-16，Q14：检查 §2.2 第 6 页深度限制与 §2.3 第 7–8 页全文，包含式 (3)–(4)；使用本地 PDF 提取文本，未复现攻击或资源表。
+- 2026-10-16，Q15：检查 §3.5 第 15 页通信成本段与式 (11)，以及第 16 页接续段的本地 PDF 提取文本；未核验数值或硬件布局。
 
 <a id="s03"></a>
 ### S03 — Grover STOC 1996 paper (P01/S01)
