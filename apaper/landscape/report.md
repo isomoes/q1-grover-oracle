@@ -121,6 +121,8 @@ Dates below distinguish first repository release from formal publication; a repo
 
 Reading session started **2026-09-28**: [reader-led record and source coverage](../papers/P03/reading.md). Primary metadata and abstract rechecked; prior full-text evidence and field-level assessments retained.
 
+**2026-11-02, reading evidence update:** §§4.1, 4.3 and 4.5–4.6 clarify that P03 combines an adapted BP12 S-box/AND implementation, in-place key expansion, delayed round cleanup, and a choice between inherited PLU MixColumn and Maximov's wider, shallower design. In-place MixColumn itself is explicitly credited to GLRS16, not introduced here. Tables 1–2 were visually checked in the corrected PDF; see [Q16 and detailed coverage](../papers/P03/reading.md). This single-paper check does not refresh the landscape search, rankings or lineage graph; no circuit resources were reproduced.
+
 ### Nonlinear synthesis and architectural turning points
 
 **P10 — Reducing the Cost of Implementing AES as a Quantum Circuit.** Brandon Langenberg, Hai Pham, Rainer Steinwandt. ePrint **2019-07-23**; later IEEE TQE **2020** publication uses the expanded title “Reducing the Cost of Implementing the Advanced Encryption Standard as a Quantum Circuit.” **Read: abstract.** Early joint S-box/key-expansion reduction; P03 §4.1 explicitly ports and compares its S-box. [Preprint](https://eprint.iacr.org/2019/854); publication identity corroborated by [P14's bibliography](https://cic.iacr.org/p/2/1/25). Bibliography here consistently cites the preprint identity.

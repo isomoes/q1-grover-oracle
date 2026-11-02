@@ -2,9 +2,9 @@
 
 ## What the paper does
 
-The paper studies quantum key search under a circuit-depth restriction, designs lower-depth AES and LowMC circuits, and provides Q# implementations of their full Grover oracles with automated resource estimates. The authors report lower attack costs in gate-count and depth-times-width models. This summary is supported by S01's abstract; it is not an independent reproduction.
+The paper studies quantum key search under a circuit-depth restriction, designs lower-depth AES and LowMC circuits, and provides Q# implementations of their full Grover oracles with automated resource estimates. The authors report lower attack costs in gate-count and depth-times-width models. Its AES design combines adapted low-depth S-box/AND circuits, round/key-expansion scheduling, delayed cleanup, and a choice of linear-layer implementations. Supported by S01's abstract and selected passages of S02, §§1, 4 and 6; not an independent reproduction.
 
-Shared identity: [P03 / G03 in the registry](../../landscape/papers.json), citation key `JaquesNRV2020Grover`; [landscape entry](../../landscape/report.md). The reading session uses the corrected ePrint dated **2023-06-07**, associated with the EUROCRYPT 2020 paper. Active full-text source: **S02**, the [locally retained corrected paper](../../sources/iacr_2019_1146_corrected_2023-06-07.pdf); contribution summary checked using S01. The correction revises AES estimates for Q# issues; LowMC estimates were not revised.
+Shared identity: [P03 / G03 in the registry](../../landscape/papers.json), citation key `JaquesNRV2020Grover`; [landscape entry](../../landscape/report.md). The reading session uses the corrected ePrint dated **2023-06-07**, associated with the EUROCRYPT 2020 paper. Active full-text source: **S02**, the [locally retained corrected paper](../../sources/iacr_2019_1146_corrected_2023-06-07.pdf); contribution summary checked using S01 and the S02 passages listed below. The correction revises AES estimates for Q# issues; LowMC estimates were not revised.
 
 ## Reader's questions
 
@@ -140,6 +140,14 @@ $$
 - 回答：二叉树的并发汇总使顺序依赖层数为 O(log S)，不是 S；二维布局中每台机器占地按 G_W 缩放，总占地按 S G_W 缩放，根到叶的 H-tree 路径长度为 O(√(S G_W))。将几何与传播速度换算进 c_S 后，通信时间为 O(log S)+c_S√(S G_W) 个门周期。忽略对数项，搜索深度为 A/√S，其中 A=c_p 2^(k/2)G_D；通信深度为 B√S，其中 B=c_S√G_W。二者相等给出交叉机器数 S*=A/B=2^(k/2)c_pG_D/(c_S√G_W)，共同尺度为 √(AB)=2^(k/4)√(c_pc_SG_D√G_W)，即式 (11)。这是固定单轮电路、二维布局和传播模型下的尺度估算，不是无条件量子搜索下界；严格相加的搜索与末尾通信在该点约为 2√(AB)，论文式 (11) 表示平衡尺度/主导项，而非含全部常数的精确端到端时间。要使通信远小于搜索，应取 S 远小于交叉值，而非只要求不超过。
 - 来源：P03/S02，2023-06-07 修正版，§3.5 第 15 页该段及式 (11)、第 16 页接续段，结合第 14 页式 (5)。2026-10-16 新检查第 15–16 页本地 PDF 提取文本。面积到路径长度、A/B 平衡和常数因子核对为助手推导；未核验作者硬件假设或复现数值。
 
+### Q16 — Are in-place MixColumn and parallel key search the main contributions; what improves at circuit level?
+
+- Raised 2026-11-02: the reader asks whether the main circuit contribution is in-place MixColumn and distinguishes this from parallel key search to meet MAXDEPTH.
+- Answer: only partly. §4.3 explicitly attributes in-place PLU MixColumn to GLRS16 (P02); P03 does not introduce that technique and says it could not reproduce GLRS16's smaller design. Its AES improvements combine adaptation of Boyar–Peralta BP12's low-depth S-box using T-depth-1 AND gates with measurement-assisted cleanup (§§3.1, 4.1, Appendix C), in-place generation of only the round-key words immediately needed (§4.5), and interleaving key expansion with encryption while delaying round uncomputation until the ciphertext is available (§4.6). These choices favor depth over minimum width; they are not a claim that the constituent classical circuits or AND primitive were invented in P03.
+- Component evidence: Table 1, the authors' own Q# reconstructions, reports BP10 → BP12 T-depth 35 → 6, full depth 589 → 125 and width 81 → 145. BP10 is also implemented with AND gates for this comparison; these are not the original LPS19 Toffoli-level counts. Table 2 reports in-place → Maximov out-of-place MixColumn full depth 111 → 66 and width 128 → 318; both have zero T-depth. This is a linear-layer depth/width option, not a universal best full-oracle variant. The corrected implementation also compares shared versus separate auxiliary sets for ByteSub/SubByte (Tables 3–4); the authors' explanation of certain cross-call T-depth reductions remains tentative (§4.7).
+- Search versus circuit optimization: the introduction reviews existing parallel-search literature rather than claiming invention of inner parallelization. Partitioned key search meets the total-depth budget; it is different from parallel operations inside one oracle. Under §3.5's assumptions and approximations, fixed-depth attack objectives reduce to minimizing G_D G_G or G_D² G_W for a single iteration. Lowering oracle depth can therefore reduce the number of parallel machines needed. §6.1 additionally justifies fewer plaintext/ciphertext pairs, including in partitioned search, reducing the number of AES evaluations; this remains conditional on spurious-key/success accounting.
+- Evidence: P03/S02, corrected 2023-06-07 ePrint, §1 contributions (p. 3); §§3.1 and 3.3 (pp. 9–12); §3.5 Eqs. (8)–(10) (p. 14); §§4.1 and 4.3 / Tables 1–2 (pp. 16–18); §§4.5–4.7 / Tables 3–4 (pp. 18–23); §6.1 and §6.2 (pp. 26–29); Appendix C (p. 39). Table 1 and Table 2 were visually checked. Appendix B (p. 38) explains key-schedule overlap but is explicitly unrevised; its numerical comparison was not treated as corrected evidence. All values are author-reported estimates, not reproduced results. §6.2's attack costing omits diffusion.
+
 ## Selected notes
 
 - [N01 — 振幅放大不等于测量必然成功](notes.md#n01)：2026-10-10，按读者要求用中文保存；包括读者关于测量成功概率的理解、提前测量与重启的区别，以及“满足条件的候选”不一定是原始秘密密钥的限制。
@@ -175,6 +183,7 @@ $$
 - 2026-10-16，Q13：检查 §3.5 第 13–14 页成本模型定义及式 (5)–(10) 的本地 PDF 提取文本；未执行资源估计或审计后续数值表格。
 - 2026-10-16，Q14：检查 §2.2 第 6 页深度限制与 §2.3 第 7–8 页全文，包含式 (3)–(4)；使用本地 PDF 提取文本，未复现攻击或资源表。
 - 2026-10-16，Q15：检查 §3.5 第 15 页通信成本段与式 (11)，以及第 16 页接续段的本地 PDF 提取文本；未核验数值或硬件布局。
+- 2026-11-02, Q16: inspected the existing local PDF extraction for the abstract and §1's prior-work/contributions paragraphs (pp. 1–3), §3.1's AND implementation and §3.3's revision issues (pp. 9–12), §3.5's cost objectives (pp. 13–14), §§4.1, 4.3 and 4.5–4.7 including Tables 1–4 and Figure 4–6 captions (pp. 16–23), §6.1 and the relevant §6.2 comparison/depth-limit paragraphs (pp. 26–29), Appendix B (p. 38) and Appendix C (p. 39). Visually checked Tables 1–2 and surrounding text on printed/viewer pp. 17–18 against newly rendered pages. Reverified the retained PDF's SHA256 above. Appendix B explicitly remains unrevised; its numbers are not used as corrected comparison evidence. The exact cause of the scheduling effect in §4.7 is the authors' tentative interpretation, not an independently established optimization. No new code inspection or resource reproduction.
 
 <a id="s03"></a>
 ### S03 — Grover STOC 1996 paper (P01/S01)
