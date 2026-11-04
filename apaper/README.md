@@ -10,6 +10,8 @@ Keep the field map, individual-paper reading materials, and later cross-paper sy
 
 The map contains 20 core papers and five routes, searched on 2026-09-27 with preliminary coverage. Its evidence-reading levels describe source inspection, not the user's understanding.
 
+2026-11-04：已在[报告开头](landscape/report.md)补充下一阶段阅读建议：先 P06（低 DW-cost，2025-11-27 修订版），随后对照 P14（2025 版本）。此次为定向复核，完整 Grover 迭代的统一最优仍未确定。
+
 ## Paper reading
 
 Interactive reading records cover P01/G01, P02/G02, and P03/G03. P03 remains the landscape's recommended first reproduction baseline. Preserve P01–P20 and the G-series aliases already recorded in the map.

@@ -2,6 +2,18 @@
 
 **Search and cutoff:** 2026-09-27. **Recent window:** 2024-09-27–2026-09-27. **Coverage:** preliminary; 20 core papers, five overlapping routes.
 
+## 2026-11-04：下一阶段阅读建议（定向复核）
+
+**建议下一篇读 P06：Quantum Circuit Synthesis for AES with Low DW-cost，使用 2025-11-27 修订版；随后对照 P14：Quantum Analysis of AES 的 2025 版本。** 这是从理解 P03 的实现转向研究低资源电路的阅读建议，不是完整 Grover 攻击的全球最优排名。
+
+- **P06 主攻低宽度与深度×宽度折中。** 原位 S-box、中间态用于清除输入、有限域乘法并行化、密钥扩展与轮函数协同优化构成清晰的技术链。适合识别“改进来自哪个模块、靠什么资源交换”。关键证据沿用本报告 §4 的 Table 4/footnote 3/Appendix G 审查；其比较电路遗漏需要在统一基准时补齐，补齐本身不等于新算法贡献。
+- **P14 是低深度与架构侧的重要对手。** 官方摘要给出 78 种 AES 实现、P03 估计器问题的分析及 MAXDEPTH 下的成本；适合防止仅击败旧基线。摘要中的最优表述不能自动延伸到其后所有工作。
+- **P05 与 P15 按选题补读。** 若选择非线性组件，核对 P05 的最小 T-depth/width 的适用条件；若选择清理与辅助比特复用，核对 P15 的 oracle 转换，避免重复已有方法。
+
+建议的研究目标是：在相同密钥长度、明密文对数、成功概率、门模型与测量假设下，使完整 oracle 或完整 Grover 迭代在一个明确指标上优于现有强基线，并报告其他指标的代价。目前尚未确认这一口径下的统一最优论文。
+
+本次检索日为 **2026-11-04**。aPaper 的 IACR 查询 `AES quantum`（2025–2026）及 Scholar 查询 `AES quantum circuit Grover low depth width`（2025–2026）均返回零结果；已知论文仍能从原站取得，因此不能据此推断无更新。补充网页检索与 [P06 原站](https://eprint.iacr.org/2025/1494)、[P14 期刊页](https://cic.iacr.org/p/2/1/25)复核支持上述选择，但没有完成全领域更新。另检出 [Constructing resource-efficient quantum circuits for AES](https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2025.1582819/full)（2025，CCQC 方法），作为待核对候选：本次只检查搜索摘录，尚未统一其完整 oracle 成本。原有核心图的 2026-09-27 覆盖日期保留；本次未新增资源复现或全文审查。
+
 ## 1. Core evolution graph
 
 Nodes retain the project's G01–G09 aliases as P01–P09; IDs do not encode chronology. Placement uses one primary route per node; the JSON records cross-membership. Labels give initial/publication years where they differ, plus important revisions.
