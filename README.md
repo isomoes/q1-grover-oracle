@@ -20,7 +20,9 @@ The intended result is a reproducible comparison of complete attack oracles and 
 - [Research landscape: 20 core papers and five routes](apaper/landscape/report.md) (searched 2026-09-27; preliminary coverage)
 - [Papers we have read (issue #1)](https://github.com/isomoes/q1-grover-oracle/issues/1)
 - [BibTeX bibliography](docs/references.bib)
-- [Experiment record template](experiments/template.md)
+- [Experiment record template](result/template.md)
+- [Theory and Lean 4 formalization](theory/README.md)
+- [Experiment code](code/README.md)
 
 ## Initial milestones
 
