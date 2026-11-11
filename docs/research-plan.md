@@ -28,9 +28,17 @@ Matching the transcript is distinct from identifying the original secret key. Un
 
 Start with AES-128 and fixed classical pairs. Implement and validate the components in this order: classical reference encryption; reversible S-box and linear layer; coherent key schedule; full encryption and inverse; equality checks and their conjunction; phase marking and cleanup; key-register diffuser.
 
-Pin the cipher specification, bit ordering, gate semantics, compiler, decomposition rules, and dependency versions before reporting results. Select the implementation framework after examining the baseline artifact and its reproducibility requirements.
+Pin the cipher specification, bit ordering, gate semantics, compiler, decomposition rules, and dependency versions before reporting results. Use the Python + Qiskit environment selected below, and record the original toolchain separately when reproducing a baseline artifact.
 
 Use known-answer tests for classical and reversible encryption. Exhaustively check small components and use small toy instances to check the entire phase oracle, including relative phases and zeroed workspace. A truth-table match alone cannot validate phase-sensitive substitutions. Full AES state-vector simulation is not a required or plausible baseline strategy.
+
+## Implementation environment
+
+**Decision, 2026-11-11: use Python + Qiskit as the primary quantum circuit implementation environment.** Python hosts circuit generation, scheduling/optimization algorithms, experiment orchestration, and result analysis. Qiskit supplies circuit representation, explicit gate operations, decomposition, and small-instance validation through a selected simulator.
+
+Maintain a lightweight, auditable resource-accounting and scheduling layer that records qubit allocation/release, quantum dependencies, measurement outcomes and classical feed-forward dependencies. Derive depth and peak width from the same scheduled circuit under explicit gate and latency assumptions. The detailed implementation and validation conventions are in [code/README.md](../code/README.md).
+
+Use Q# author artifacts to reproduce published baselines and cross-check the Python + Qiskit implementations. Pin the original artifact and toolchain first, then explain any differences introduced by porting. Python, Qiskit, and simulator versions will be selected and locked when the executable environment is initialized; this decision records the stack, not a completed installation or reproduction.
 
 ## Baselines and proposed experiments
 

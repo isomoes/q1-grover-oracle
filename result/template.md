@@ -11,9 +11,13 @@ Copy this file to a named experiment directory when beginning an experiment. Rep
 | Pair count / transcript generation seed | Pending |
 | Baseline citation key / paper version / table | Pending |
 | Baseline artifact URL / commit / license | Pending |
+| Baseline toolchain / versions | Pending |
 | This repository commit / dependency lock / environment | Pending |
-| Gate set / decomposition / connectivity / scheduling | Pending |
+| Python / Qiskit / simulator versions | Pending |
+| Gate set / decomposition / transpiler passes and seeds / connectivity / scheduling | Pending |
+| Resource-accounting implementation / qubit lifetime and reuse model | Pending |
 | Ancilla budget / measurements / feed-forward | Pending |
+| Gate durations / measurement and feed-forward latency / time units | Pending |
 | M assumption / false-key policy / target success probability | Pending |
 | Depth cap / parallel processors / partition policy | Pending |
 | Reproduction and verification commands | Pending |

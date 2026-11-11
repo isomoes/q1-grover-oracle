@@ -12,6 +12,10 @@ Can jointly optimizing nonlinear layers, linear layers, key scheduling, comparis
 
 The intended result is a reproducible comparison of complete attack oracles and their depth/width tradeoffs. Candidate improvements include ancilla reuse, reversible scheduling, linear-layer synthesis, and compatible compute/uncompute constructions. These are research hypotheses; novelty and improvements remain to be established.
 
+## Implementation environment
+
+**Python + Qiskit** is the selected environment for quantum circuit implementation and optimization experiments (decision: 2026-11-11). Project-specific resource accounting tracks ancilla lifetimes, scheduling, and measurement/feed-forward dependencies. Q# author artifacts serve as reproduction and cross-check baselines. See the [implementation guide](code/README.md) and [research plan](docs/research-plan.md#implementation-environment).
+
 ## Start here
 
 - [Research plan and model](docs/research-plan.md)
