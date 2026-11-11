@@ -23,7 +23,7 @@ Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, 
 | P01 / G01 — Grover 1996 | [Summary, questions, and sources](papers/P01/reading.md) | [2026-09-15 notes](papers/P01/note.md) | Existing notes retained; awaiting the reader's chosen question |
 | P02 / G02 — Applying Grover's algorithm to AES | [Summary, questions, and sources; arXiv v1](papers/P02/reading.md) | [N01: reversible AES](papers/P02/notes.md#n01); [N02: in-place LUP tradeoffs](papers/P02/notes.md#n02); [N03: permutation-group S-box synthesis](papers/P02/notes.md#n03) | Q06–Q19 explanations recorded; latest: accumulated quantum-gate operations versus current silicon integration scale |
 | P03 / G03 — Implementing Grover oracles for quantum key search on AES and LowMC | [Summary, questions, and sources; corrected 2023 ePrint](papers/P03/reading.md) | [N01：振幅放大与测量成功率](papers/P03/notes.md#n01)；[N02：伪匹配密钥与旋转角](papers/P03/notes.md#n02)；[N03：PLU 分解的非唯一性与稀疏性](papers/P03/notes.md#n03) | Q01–Q16 answered; latest: AES circuit contributions versus inherited MixColumn and parallel-search techniques |
-| P06 / G06 — Quantum Circuit Synthesis for AES with Low DW-cost | [贡献、问题与来源；2025-11-27 修订版](papers/P06/reading.md) | 暂无 | Q01–Q08：核心创新与清理的空间—深度折中；最新：原位结构创新与低 DW-cost 实现的贡献链 |
+| P06 / G06 — Quantum Circuit Synthesis for AES with Low DW-cost | [贡献、问题与来源；2025-11-27 修订版](papers/P06/reading.md) | 暂无 | Q01–Q10：核心创新、清理折中与量子计算基础；最新：摘要 benchmark 指资源效率新标杆 |
 
 ## Later synthesis
 
