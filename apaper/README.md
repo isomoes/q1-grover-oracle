@@ -10,6 +10,8 @@ Keep the field map, individual-paper reading materials, and later cross-paper sy
 
 The map contains 20 core papers and five routes, searched on 2026-09-27 with preliminary coverage. Its evidence-reading levels describe source inspection, not the user's understanding.
 
+2026-11-11：完成[两条选题路线的定向评估](synthesis/route-assessment-2026-11-11.md)，新增 P21–P28 八篇竞争者／方法先例；原 20 篇核心图保留历史覆盖。建议以已有指标上的完整 oracle 方法改进为主，以宽度和测量反馈约束下的评价为辅；尚无本地资源复现或已证新颖性。
+
 2026-11-04：已在[报告开头](landscape/report.md)补充下一阶段阅读建议：先 P06（低 DW-cost，2025-11-27 修订版），随后对照 P14（2025 版本）。此次为定向复核，完整 Grover 迭代的统一最优仍未确定。
 
 ## Paper reading
@@ -27,7 +29,7 @@ Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, 
 
 ## Later synthesis
 
-Create `synthesis/` when a cross-paper comparison or concept note is needed, linking back to paper IDs and evidence locations.
+- [2026-11-11：已有指标优化与新评价角度的选题评估](synthesis/route-assessment-2026-11-11.md)：竞争者、已有先例、DW/D²W 的场景区别、推荐问题和首轮验证门槛。
 
 ## Workspace conventions
 

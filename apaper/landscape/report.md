@@ -1,6 +1,32 @@
 # Q1 Grover oracle optimization: an evidence-linked research landscape
 
-**Search and cutoff:** 2026-09-27. **Recent window:** 2024-09-27–2026-09-27. **Coverage:** preliminary; 20 core papers, five overlapping routes.
+**Original core search and cutoff:** 2026-09-27. **Core recent window:** 2024-09-27–2026-09-27. **Core coverage:** preliminary; 20 papers, five overlapping routes. Later targeted updates follow.
+
+## 2026-11-11：两条选题路线评估（定向更新）
+
+**建议：以已有指标上的方法改进为主，以真实资源约束驱动的评价为辅。** 详见[完整分析与首轮实验门槛](../synthesis/route-assessment-2026-11-11.md)。本次检索截止 2026-11-11、近期窗口 2024-11-11–2026-11-11；新增 P21–P28，保留原 20 篇核心图的历史范围。
+
+- **已有指标路线仍活跃且竞争强。** 除 P05/P06/P14/P15，新增核查 P21 CCQC、P22 Chen 等的复合域电路和 P28 循环矩阵线性层优化；优化目标已包括 TDW、FDW、密钥调度与清理。
+- **新评价路线已有重要先例。** P23 SQUARE 的辅助比特存活体积、P24 Reqomp 的空间约束反计算、P25 的架构相关 active volume/reaction depth，以及 P26/P27 的后续清理研究，都限制了“首次提出”类主张。
+- **攻击目标可能改变最优选择。** P03 corrected §3.5 Eq. (10) 已指出限时内部分区并行搜索关联单次迭代的 `D²W`；不限时单机成本则关联 `DW`。两者及其适用条件均不是新指标。
+- **推荐待验证问题**：宽度和反馈延迟约束下，完整 oracle 的跨轮／密钥扩展／多明密文对清理调度。需证明方法区别与同口径收益；当前没有新颖性证明或资源复现。
+
+### 新登记的竞争者与方法先例
+
+| ID／论文／作者 | 版本与状态 | 本轮证据与作用 |
+|---|---|---|
+| **P21 — Constructing resource-efficient quantum circuits for AES**；Liao-Liang Jiang, Bin-Bin Cai, Fei Gao, Su-Juan Qin, Zheng-Ping Jin, Qiao-Yan Wen | Frontiers in Physics，2025-04-22；同行评审 | **全文选段**：§3–§5、Tables 8–9。CCQC 同时优化 TDW/FDW；Table 8 为 forward+adjoint，Table 9 为 forward-only。[原文](https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2025.1582819/full) |
+| **P22 — Quantum circuit for implementing AES S-box with low costs**；Huinan Chen, Binbin Cai, Fei Gao, Song Lin | arXiv v1 2025-03-08、v2 2025-08-01；QIP 2026-02-11，同行评审 | **全文选段**：arXiv v2 §IV-B–D/Table XIV–XVII。102,800 是含量子密钥扩展的加密电路 T-depth×width；非完整 oracle。Table XVII 的“same T depth”文字与 100/80 行值不一致。[原文](https://arxiv.org/html/2503.06097v2)，[出版 DOI](https://doi.org/10.1007/s11128-026-05083-7) |
+| **P23 — SQUARE: Strategic Quantum Ancilla Reuse for Modular Quantum Programs via Cost-Effective Uncomputation**；Yongshan Ding, Xin-Chuan Wu, Adam Holmes, Ash Wiseth, Diana Franklin, Margaret Martonosi, Frederic T. Chong | arXiv 2020-04-18、v2 2020-06-25；ISCA 2020，同行评审 | **全文选段**：§III-A–B。清理／复用、局部性、并行性和 active quantum volume 均有直接先例。[原文](https://arxiv.org/html/2004.08539v2) |
+| **P24 — Reqomp: Space-constrained Uncomputation for Quantum Circuits**；Anouk Paradis, Benjamin Bichsel, Martin Vechev | arXiv 2022-12-20、v2 2024-02-09；Quantum 8, 1258，2024 | **摘要**：自动合成空间受限反计算与比特／门数折中；尚未检查代码或 AES 适配。[记录](https://arxiv.org/abs/2212.10395v2) |
+| **P25 — Active volume: An architecture for efficient fault-tolerant quantum computers with limited non-local connections**；Daniel Litinski, Naomi Nickerson | arXiv v1 2022-11-28；按已核实记录列预印本 | **全文选段**：引言、§1。memory、active volume、reaction depth 与架构绑定；其 active volume 不等于 P23 的存活区间之和。[原文](https://arxiv.org/html/2211.15465v1) |
+| **P26 — Parallel Spooky Pebbling Makes Regev Factoring More Practical**；Gregory D. Kahanamoku-Meyer, Seyoon Ragavan, Katherine Van Kirk | ePrint 2025-10-09、修订 2026-07-02；EUROCRYPT 2026，同行评审 | **摘要**：并行与测量辅助 pebbling 已被联合研究；实例是 Regev factoring，非 AES。[记录](https://eprint.iacr.org/2025/1887) |
+| **P27 — Quantum Uncomputation of Clean and Dirty Ancilla Qubits**；Chenke Liu, Li Zhou, Boning Meng | arXiv 2026-08-10、v2 2026-10-11；预印本 | **摘要**：clean/dirty ancilla 统一形式化与 RwUn；新版摘要比较 Reqomp，不沿用搜索旧摘录中的百分比。[记录](https://arxiv.org/abs/2608.09578v2) |
+| **P28 — Utilizing Circulant Structure to Optimize the Implementations of Linear Layers**；Buji Xu, Xiaoming Sun | arXiv 2025-11-23、v2 2026-05-24；ToSC 2026(2)，2026-06-11，同行评审 | **摘要及出版元数据**：AES MixColumn 自动合成深度 10；107/105 CNOT 仅见原文搜索摘录，未重建。[arXiv](https://arxiv.org/abs/2511.18226v2)，[期刊](https://tosc.iacr.org/index.php/ToSC/article/view/13012) |
+
+对原路线的增补：R01 的成本模型对照加入 P25；R02/R04 的竞争者加入 P21/P22；R03 加入 P28；R05 的通用方法背景加入 P23/P24/P26/P27。旧核心图不因主题相似而增加未经证明的继承边；新增的可核查边保存在注册表。**近期新增工作**以 P26/P27 的 2026 修订及 P22/P28 的 2026 出版为代表；**最佳完整迭代**仍未确定。具体选题先复现 P03，再对照 P06/P14；自动清理方向需额外核对 P15/P24。
+
+本轮 aPaper IACR、Scholar、arXiv 定向查询均零结果，使用原站、开放 HTML 与网页检索补证。P14/P15 PDF 下载返回 403，NIST PDF 获取失败；ToSC 直取受访问挑战限制。P15 的既有全文选段证据保留，本轮未重审。详细查询与覆盖缺口见[评估 §7](../synthesis/route-assessment-2026-11-11.md#7-检索与证据边界)和注册表 `targeted_updates`。无代码运行或数值复现。
 
 ## 2026-11-04：下一阶段阅读建议（定向复核）
 
@@ -240,7 +266,7 @@ No paper is designated a universal complete-iteration winner, and no independent
 
 | Candidate | Why it could change the assessment | Why not promoted to the core ranking |
 |---|---|---|
-| Chen, Cai, Gao, Lin, *Quantum circuit for implementing AES S-box with low costs*; [ePrint 2025/454](https://eprint.iacr.org/2025/454), [arXiv 2503.06097](https://arxiv.org/abs/2503.06097), QIP 2026 [DOI](https://doi.org/10.1007/s11128-026-05083-7) | AES S-box and reported T-depth×width 102,800 could affect the low-cost frontier | v2 dated 2025-08-01; preprint/published abstract wording differs on linear vs nonlinear key-schedule optimization. Metric boundary, pair count and comparison/cleanup not verified; no comparison to P06's 167,968 is justified |
+| **P22**, Chen, Cai, Gao, Lin, *Quantum circuit for implementing AES S-box with low costs*; [ePrint 2025/454](https://eprint.iacr.org/2025/454), [arXiv 2503.06097](https://arxiv.org/abs/2503.06097), QIP 2026 [DOI](https://doi.org/10.1007/s11128-026-05083-7) | AES S-box and reported T-depth×width 102,800 could affect the low-cost frontier | **2026-11-11 更新**：v2 §IV/Table XIV 确认为含量子密钥扩展的加密电路；完整 oracle 未统一。不能与 P06 的 167,968 直接排名；详见报告开头及选题评估 |
 | [ePrint 2025/1664](https://eprint.iacr.org/2025/1664), large-S-box MILP candidate | Optimization of nonlinear components | Retrieved description uses U+CX-transpiled depth; not normalized to Clifford+T/full-oracle accounting |
 | [ePrint 2026/1446](https://eprint.iacr.org/2026/1446), LLM-assisted circuit optimization, revised 2026-08-06 | Recent implementation/search methodology | Preprint, chiefly lightweight-cipher evidence; AES complete-oracle claim and independent verification not established |
 | ADOQ and newer multi-controlled-gate decompositions | Could affect comparison/diffusion or implementation automation | Candidate identities, versions and compatible cost models require a dedicated expansion round |
