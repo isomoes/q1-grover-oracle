@@ -14,7 +14,7 @@ The map contains 20 core papers and five routes, searched on 2026-09-27 with pre
 
 ## Paper reading
 
-Interactive reading records cover P01/G01, P02/G02, and P03/G03. P03 remains the landscape's recommended first reproduction baseline. Preserve P01–P20 and the G-series aliases already recorded in the map.
+Interactive reading records cover P01/G01, P02/G02, P03/G03, and P06/G06. P03 remains the landscape's recommended first reproduction baseline. Preserve P01–P20 and the G-series aliases already recorded in the map.
 
 Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, routes, key evidence, and the reading-record link in the shared [paper registry](landscape/papers.json). Each paper's `reading.md` briefly records what it does, questions actually raised or adopted by the reader, selected-note links, and source inspection coverage. Create `notes.md` when the reader selects something for retention. The reader chooses the direction; a paper ID alone does not start a lesson or an assistant-generated question list. Keep original papers and supporting materials together in the shared [sources folder](sources/), using distinct filenames for different versions. Check existing identifiers, versions, and SHA256 checksums before adding a copy; multiple records can link to the same file. Keep local extraction, rendered pages, and scratch calculations in Git-ignored `papers/<paper-id>/work/`.
 
@@ -23,6 +23,7 @@ Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, 
 | P01 / G01 — Grover 1996 | [Summary, questions, and sources](papers/P01/reading.md) | [2026-09-15 notes](papers/P01/note.md) | Existing notes retained; awaiting the reader's chosen question |
 | P02 / G02 — Applying Grover's algorithm to AES | [Summary, questions, and sources; arXiv v1](papers/P02/reading.md) | [N01: reversible AES](papers/P02/notes.md#n01); [N02: in-place LUP tradeoffs](papers/P02/notes.md#n02); [N03: permutation-group S-box synthesis](papers/P02/notes.md#n03) | Q06–Q19 explanations recorded; latest: accumulated quantum-gate operations versus current silicon integration scale |
 | P03 / G03 — Implementing Grover oracles for quantum key search on AES and LowMC | [Summary, questions, and sources; corrected 2023 ePrint](papers/P03/reading.md) | [N01：振幅放大与测量成功率](papers/P03/notes.md#n01)；[N02：伪匹配密钥与旋转角](papers/P03/notes.md#n02)；[N03：PLU 分解的非唯一性与稀疏性](papers/P03/notes.md#n03) | Q01–Q16 answered; latest: AES circuit contributions versus inherited MixColumn and parallel-search techniques |
+| P06 / G06 — Quantum Circuit Synthesis for AES with Low DW-cost | [贡献、问题与来源；2025-11-27 修订版](papers/P06/reading.md) | 暂无 | Q01–Q06：核心创新；局部与整体反计算；增加宽度、推迟清理和最短深度的区别 |
 
 ## Later synthesis
 

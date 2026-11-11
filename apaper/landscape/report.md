@@ -14,6 +14,8 @@
 
 本次检索日为 **2026-11-04**。aPaper 的 IACR 查询 `AES quantum`（2025–2026）及 Scholar 查询 `AES quantum circuit Grover low depth width`（2025–2026）均返回零结果；已知论文仍能从原站取得，因此不能据此推断无更新。补充网页检索与 [P06 原站](https://eprint.iacr.org/2025/1494)、[P14 期刊页](https://cic.iacr.org/p/2/1/25)复核支持上述选择，但没有完成全领域更新。另检出 [Constructing resource-efficient quantum circuits for AES](https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2025.1582819/full)（2025，CCQC 方法），作为待核对候选：本次只检查搜索摘录，尚未统一其完整 oracle 成本。原有核心图的 2026-09-27 覆盖日期保留；本次未新增资源复现或全文审查。
 
+2026-11-11：已开始 [P06 逐篇阅读](../papers/P06/reading.md)，引用键沿用 `LiaoLuo2025DW`。针对读者的“最大创新”问题，补查 §1.2、§3.1 Theorems 1–2、§3.2 开头与 Table 3：核心方法可概括为利用复合域求逆中间值清除输入的直接原位 S-box 构造。此为选段解释，不新增全局最优或谱系判断，原检索截止日期不变。
+
 ## 1. Core evolution graph
 
 Nodes retain the project's G01–G09 aliases as P01–P09; IDs do not encode chronology. Placement uses one primary route per node; the JSON records cross-membership. Labels give initial/publication years where they differ, plus important revisions.
