@@ -36,7 +36,7 @@ The intended result is a reproducible comparison of complete attack oracles and 
 - [ ] Compare optimization variants at matched resource constraints.
 - [ ] Release commands, pinned dependencies, circuits, and measured result tables.
 
-**Status:** research scaffold. This initial commit contains the plan, references, and experiment protocol. Circuit implementations and benchmark results are pending.
+**Status:** research scaffold with a [Lean 4 foundation](theory/README.md) for transcript matching and signed-basis phase-oracle correctness. Concrete AES circuit implementations and benchmark results are pending.
 
 The companion project, [Quantum Symmetric Distinguishers](https://github.com/isomoes/quantum-symmetric-distinguishers), studies structural distinguishers and the assumptions needed to turn them into attacks.
 

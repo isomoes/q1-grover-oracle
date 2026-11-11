@@ -1,0 +1,9 @@
+name = "q1-grover"
+version = "0.1.0"
+defaultTargets = ["Q1Grover"]
+
+[[lean_lib]]
+name = "Q1Grover"
+
+[leanOptions]
+warningAsError = true
