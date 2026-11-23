@@ -1,0 +1,83 @@
+% Springer LNCS format, as required by IACR flagship conferences
+% (Eurocrypt, Crypto, Asiacrypt). Do not load packages that change the
+% default font, font sizes, margins, or line spacing.
+\documentclass[runningheads]{llncs}
+
+% Set to \anonymoustrue for blind submission; \anonymousfalse for camera-ready.
+\newif\ifanonymous
+\anonymoustrue
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\graphicspath{{figures-pdf/}}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise, nameinlink]{cleveref}
+
+% Submissions must display page numbers.
+\pagestyle{plain}
+
+\begin{document}
+
+\title{Complete Grover Key-Search Oracles for AES-128 in the Q1 Model}
+
+\ifanonymous
+  \author{Anonymous Submission}
+  \institute{}
+\else
+  \author{Author One\inst{1} \and Author Two\inst{1} \and Author Three\inst{2}}
+  \authorrunning{A. One et al.}
+  \institute{Institution One, City, Country\\
+    \email{\{author1,author2\}@example.com} \and
+    Institution Two, City, Country\\
+    \email{author3@example.com}}
+\fi
+
+\maketitle
+
+\begin{abstract}
+  Abstract placeholder.
+  \keywords{Grover's algorithm \and Quantum cryptanalysis \and AES \and
+    Q1 model \and Reversible circuits \and Quantum resource estimation}
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+Introduction placeholder.
+
+\section{Technical Overview}\label{sec:overview}
+
+\section{Preliminaries}\label{sec:preliminaries}
+
+\section{Oracle Construction}\label{sec:oracle}
+
+\section{Resource Evaluation}\label{sec:evaluation}
+
+\section{Conclusion}\label{sec:conclusion}
+
+\ifanonymous\else
+\begin{credits}
+  \subsubsection{\ackname} Acknowledgments placeholder.
+\end{credits}
+\fi
+
+% Temporary: list project references until the text cites them.
+% Never use \nocite{*} with CryptoBib (it would cite the whole database).
+\nocite{
+  STOC:Grover96,
+  PQCRYPTO:GLRS16,
+  EC:JNRV20,
+  AC:ShiFen24,
+  EC:HuaZhaLin25,
+  AC:LiaLuo25,
+  Gidney2018Addition,
+  PerrielloBP2024DES,
+  GuoZLWWZ2026SMT}
+\bibliographystyle{splncs04}
+% CryptoBib (git submodule tex/cryptobib) + project-specific entries.
+% Run `git submodule update --init` after cloning.
+\bibliography{cryptobib/abbrev3,cryptobib/crypto,biblio}
+
+\end{document}

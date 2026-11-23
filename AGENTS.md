@@ -16,6 +16,7 @@ Read the linked documents when relevant to the task; do not load everything upfr
 | `apaper/sources/` | Shared original papers and supporting sources. |
 | `theory/` | [Theoretical development and Lean 4 formalization](theory/README.md). |
 | `code/` | [Circuit implementations and experiment code](code/README.md). |
+| `tex/` | IACR conference manuscript (`index.tex`, Springer LNCS `llncs` + `splncs04`); build with `latexmk` inside `tex/`. |
 | `result/` | Experiment records and artifacts; use the [experiment template](result/template.md). |
 | `.agents/skills/` | Local skill instructions and supporting guides. |
 | `opencode.json` | [Project agent configuration](opencode.json). |
