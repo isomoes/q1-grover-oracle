@@ -30,7 +30,8 @@ $$
 The initial experiment requires $r\geq1$ and distinct plaintexts. `Q1Data`
 records these two conditions; `Transcript.Matches cipher data secret` records
 consistency with a particular secret. `Transcript.collect` describes classical
-data generation from a fixed key.
+data generation from a fixed key, and `Q1Data.ofCollect` packages collected data
+with both conditions (`Q1Data.ofCollect_matches` gives consistency).
 
 The quantum search receives the public cipher and the classical transcript.
 Candidate-key evaluation of $E_K$ is local quantum computation. The secret-key
@@ -62,9 +63,12 @@ The current Lean library proves:
 | Additional data cannot introduce new matching keys | `Transcript.matches_of_append` |
 | Matching identifies the secret under explicit uniqueness | `Transcript.marked_iff_eq_secret` |
 | An empty transcript accepts every key | `Transcript.predicate_nil` |
+| $\mathcal M_T$ is exactly the matching keys | `Transcript.mem_markedKeys` |
+| Consistency gives $1\le M\le N$; for AES, $N=2^{128}$ | `Transcript.markedCount_pos`, `AES128.markedCount_bounds`, `AES128.card_key` |
+| Uniqueness is $\mathcal M_T=\{K_\star\}$, equivalently $M=1$ with $K_\star$ marked | `Transcript.uniqueKey_iff_markedKeys`, `Transcript.uniqueKey_iff_markedCount` |
 
 The empty case remains available in the generic predicate and is excluded by
-`Q1Data`. The toy cipher in `Examples.lean` has two distinct keys that agree on
+`Q1Data`. The toy cipher in `Q1GroverTest/Examples.lean` has two distinct keys that agree on
 every plaintext. Its `toy_not_unique` theorem demonstrates that even complete
 plaintext coverage does not imply key uniqueness for an abstract keyed
 permutation. It makes no claim about AES key collisions.
@@ -99,7 +103,7 @@ basis label, $Z_m$ changes its sign, and $U^{-1}$ restores the original label.
 Intermediate garbage is allowed. The inverse here is the inverse of the
 **entire predicate computation**, including comparisons and key scheduling.
 
-`PredicateComputation` exposes exactly these obligations:
+Lean states this at two levels. The abstract level, `PredicateComputation`, exposes exactly these obligations:
 
 - `zero`: the initialized workspace;
 - `compute`: forward/backward basis maps with both inverse laws;
@@ -107,16 +111,35 @@ Intermediate garbage is allowed. The inverse here is the inverse of the
 - `computes`: its equality to the intended predicate on every clean input.
 
 `PredicateComputation.clean_oracle` proves both cleanup and the sign relation
-$b\mapsto b\mathbin{\oplus}f_T(K)$ for either initial sign $b$. In
+$b\mapsto b\mathbin{\oplus}f_T(K)$ for either initial sign $b$. This level is
+deliberately permissive. Because $U$ is any bijection and $m$ any Boolean
+function, the choice $U=\mathrm{id}$, $m(K,w)=f_T(K)$ satisfies it with no
+workspace (`Examples.abstract_contract_permissive`). It fixes the semantics of
+compute–mark–uncompute, not the work an implementation performs.
+
+The implementation level, `CircuitOracle`, removes that freedom. $U$ is a gate
+list `compute` of NCT and $Z$ gates on $128+w$ wires; the key occupies wires
+$0,\ldots,127$ and the workspace starts at $0$ (`cleanInput`). $Z_m$ is a single
+$Z$ on one designated wire `flag`. The only obligation is `computes`: after
+`compute` on a clean input, the flag wire holds $f_T(K)$. The complete oracle is
+the gate list `compute ++ [Z flag] ++ compute.inverse`, where the inverse is the
+reversed list (each gate is an involution). `CircuitOracle.clean_oracle` proves
+full key and workspace restoration with the sign relation. The proof does not
+require `compute` to be phase-free, since any $Z$ gates inside it are cancelled
+by their copies in the inverse. `Circuit.toReversible` gives the basis permutation
+of a circuit as an abstract `Reversible`, and `Circuit.run_of_phaseFree` shows that
+a $Z$-free circuit acts as that permutation with the sign unchanged. In
 `SignedBasis`, the Boolean `negative` records the coefficient $(-1)^b$; it is
 semantic information and contributes no physical qubit. The toy examples
 check marked and unmarked signs, composition with an existing minus sign, and
 cleanup after both a flag and a scratch bit become nonzero.
 
-This Lean result uses signed-basis semantics. Its complex-linear extension,
+Both Lean results use signed-basis semantics. Its complex-linear extension,
 unitarity, and action on arbitrary superpositions are subsequent proof targets.
 Relative-phase circuit substitutions also need phase-aware refinement proofs.
-The current `Reversible` interface specifically models phase-free permutations.
+The current `Reversible` interface specifically models phase-free permutations,
+and the gate layer has fixed wires with no measurement. The [theory README](README.md#scope-relative-to-the-circuit-ir)
+lists what the project circuit IR models beyond this fragment and the planned extension.
 
 `flagComputation` supplies the ideal XOR specification
 $(K,b)\mapsto(K,b\oplus f_T(K))$. Its existence proves no implementation cost.
@@ -166,11 +189,15 @@ C(O_T)=C(U)+C(Z_m)+C(U^{-1}).
 $$
 
 Under an inverse-symmetric gate-cost convention this becomes
-$2C(U)+C(Z_m)$. One Grover iteration also includes $C(D)$; a complete search
+$2C(U)+C(Z_m)$. For gate-family counts on the Lean gate syntax this is proved:
+`CircuitOracle.count_circuit` gives $C_g(O_T)=2C_g(U)+[g=Z]$ for
+$g\in\{X,\mathrm{CNOT},\mathrm{Toffoli},Z\}$, on the same gate list as the
+correctness theorem (`AES128.count_oracle` for the AES contract). One Grover iteration also includes $C(D)$; a complete search
 also includes preparation, repetitions, verification, and classical data costs.
 This identity is an accounting rule, not a measured AES estimate.
 
-Width and depth require an actual circuit schedule and ancilla lifetimes.
+The wire count $128+w$ is an upper bound on width only. Width with reuse, and
+depth, require an actual circuit schedule and ancilla lifetimes, which the IR provides.
 Measurement-assisted uncomputation requires its own semantics and accounting.
 The immediate implementation objective is therefore to supply a concrete AES
 predicate circuit satisfying the proved contract, then attach the matched

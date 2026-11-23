@@ -1,9 +1,17 @@
 name = "q1-grover"
 version = "0.1.0"
-defaultTargets = ["Q1Grover"]
+defaultTargets = ["Q1Grover", "Q1GroverTest"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.31.0"
 
 [[lean_lib]]
 name = "Q1Grover"
+
+[[lean_lib]]
+name = "Q1GroverTest"
 
 [leanOptions]
 warningAsError = true

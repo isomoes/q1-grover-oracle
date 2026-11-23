@@ -1,5 +1,6 @@
 import Q1Grover.Model
 import Q1Grover.Oracle
+import Mathlib.Data.Fintype.Prod
 
 /-! Small kernel-checked examples exercise transcript ambiguity and relative
 signs, including a computation that leaves garbage before uncomputation. -/
@@ -17,10 +18,8 @@ def toyCipher : BlockCipher (Bool × Bool) Bool where
     intro ⟨first, second⟩ block
     cases first <;> cases block <;> rfl
 
-def toyData : Q1Data Bool where
-  pairs := Transcript.collect toyCipher (false, false) [false, true]
-  nonempty := by decide
-  distinctPlaintexts := by decide
+def toyData : Q1Data Bool :=
+  Q1Data.ofCollect toyCipher (false, false) [false, true] (by decide) (by decide)
 
 def toyPredicate := Transcript.predicate toyCipher toyData.pairs
 
@@ -36,6 +35,9 @@ theorem toy_not_unique : ¬ Transcript.UniqueKey toyCipher toyData.pairs (false,
   have impossible := unique.2 (false, true) accepted
   have : (true : Bool) = false := congrArg Prod.snd impossible
   contradiction
+
+/-- The toy transcript has exactly two marked keys. -/
+example : Transcript.markedCount toyCipher toyData.pairs = 2 := by decide
 
 /-- Alongside the flag, store an extra key bit as temporary garbage. -/
 def toyCompute : Reversible ((Bool × Bool) × (Bool × Bool)) where
@@ -72,5 +74,15 @@ example : toyImplementation.oracle ⟨((true, true), (false, false)), false⟩ =
 -- An existing minus sign must be composed with the mark, not overwritten.
 example : toyImplementation.oracle ⟨((false, true), (false, false)), true⟩ =
     ⟨((false, true), (false, false)), false⟩ := by decide
+
+/-- The abstract contract alone is permissive: with no workspace and an identity
+computation, the "flag" can evaluate the predicate itself. `CircuitOracle`
+excludes this by marking a single wire. -/
+def abstract_contract_permissive {Key : Type} (predicate : Key → Bool) :
+    PredicateComputation Key Unit predicate where
+  zero := ()
+  compute := ⟨id, id, fun _ => rfl, fun _ => rfl⟩
+  flag state := predicate state.1
+  computes _ := rfl
 
 end Q1Grover.Examples

@@ -1,4 +1,4 @@
-import Std
+import Mathlib.Data.Fintype.Card
 
 /-! Classical data and the key-search predicate. The target is accessed before
 search to produce a fixed transcript; candidate-key encryption is public. -/
@@ -90,6 +90,74 @@ theorem marked_iff_eq_secret [DecidableEq Block] (cipher : BlockCipher Key Block
     subst key
     exact unique.1
 
+section Counting
+
+variable [Fintype Key] [DecidableEq Block]
+
+/-- The marked-key set $\mathcal M_T$. -/
+def markedKeys (cipher : BlockCipher Key Block) (data : Transcript Block) : Finset Key :=
+  Finset.univ.filter fun key => predicate cipher data key = true
+
+/-- The number $M = |\mathcal M_T|$ of keys matching the whole transcript. -/
+def markedCount (cipher : BlockCipher Key Block) (data : Transcript Block) : Nat :=
+  (markedKeys cipher data).card
+
+@[simp] theorem mem_markedKeys (cipher : BlockCipher Key Block) (data : Transcript Block)
+    (key : Key) : key ∈ markedKeys cipher data ↔ Matches cipher data key := by
+  simp [markedKeys]
+
+theorem markedCount_le_card (cipher : BlockCipher Key Block) (data : Transcript Block) :
+    markedCount cipher data ≤ Fintype.card Key :=
+  Finset.card_le_univ _
+
+/-- Consistency with a secret gives $M \geq 1$. -/
+theorem markedCount_pos (cipher : BlockCipher Key Block) (data : Transcript Block)
+    {secret : Key} (consistent : Matches cipher data secret) : 0 < markedCount cipher data :=
+  Finset.card_pos.mpr ⟨secret, (mem_markedKeys cipher data secret).mpr consistent⟩
+
+theorem uniqueKey_iff_markedKeys (cipher : BlockCipher Key Block) (data : Transcript Block)
+    (secret : Key) : UniqueKey cipher data secret ↔ markedKeys cipher data = {secret} := by
+  constructor
+  · rintro ⟨consistent, unique⟩
+    ext key
+    simp only [mem_markedKeys, Finset.mem_singleton]
+    exact ⟨unique key, fun h => h ▸ consistent⟩
+  · intro h
+    have mem : ∀ key, Matches cipher data key ↔ key = secret := fun key => by
+      rw [← mem_markedKeys, h, Finset.mem_singleton]
+    exact ⟨(mem secret).mpr rfl, fun key => (mem key).mp⟩
+
+/-- Uniqueness is exactly $M = 1$ with the secret marked. -/
+theorem uniqueKey_iff_markedCount (cipher : BlockCipher Key Block) (data : Transcript Block)
+    (secret : Key) :
+    UniqueKey cipher data secret ↔ Matches cipher data secret ∧ markedCount cipher data = 1 := by
+  rw [uniqueKey_iff_markedKeys, markedCount, Finset.card_eq_one]
+  constructor
+  · intro h
+    exact ⟨(mem_markedKeys cipher data secret).mp (h ▸ Finset.mem_singleton_self secret),
+      secret, h⟩
+  · rintro ⟨consistent, key, h⟩
+    have : secret ∈ markedKeys cipher data := (mem_markedKeys cipher data secret).mpr consistent
+    rw [h, Finset.mem_singleton] at this
+    rw [h, this]
+
+end Counting
+
 end Transcript
+
+/-- Q1 data collected from one secret on nonempty, distinct plaintexts. -/
+def Q1Data.ofCollect {Key Block : Type} (cipher : BlockCipher Key Block) (secret : Key)
+    (plaintexts : List Block) (nonempty : plaintexts ≠ []) (distinct : plaintexts.Nodup) :
+    Q1Data Block where
+  pairs := Transcript.collect cipher secret plaintexts
+  nonempty := by simpa [Transcript.collect] using nonempty
+  distinctPlaintexts := by simpa [Transcript.collect, List.map_map, Function.comp_def] using distinct
+
+theorem Q1Data.ofCollect_matches {Key Block : Type} (cipher : BlockCipher Key Block)
+    (secret : Key) (plaintexts : List Block) (nonempty : plaintexts ≠ [])
+    (distinct : plaintexts.Nodup) :
+    Transcript.Matches cipher (Q1Data.ofCollect cipher secret plaintexts nonempty distinct).pairs
+      secret :=
+  Transcript.matches_collect cipher secret plaintexts
 
 end Q1Grover

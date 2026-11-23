@@ -1,4 +1,4 @@
-import Std
+import Mathlib.Data.BitVec
 
 /-! Exact signed-basis semantics for phase-free reversible computation followed
 by a Boolean phase mark and its inverse. `negative = true` denotes phase -1.
@@ -19,6 +19,10 @@ structure SignedBasis (Basis : Type) where
   basis : Basis
   negative : Bool
   deriving DecidableEq, Repr
+
+/-- Multiply by `(-1)^bit`. -/
+def SignedBasis.flip {Basis : Type} (bit : Bool) (state : SignedBasis Basis) : SignedBasis Basis :=
+  ⟨state.basis, Bool.xor state.negative bit⟩
 
 variable {Basis Key Workspace : Type}
 
@@ -44,9 +48,14 @@ theorem computeMarkUncompute_eq (compute : Reversible Basis) (flag : Basis → B
       ⟨state.basis, Bool.xor state.negative (flag (compute.forward state.basis))⟩ := by
   simp [computeMarkUncompute, compute.backward_forward]
 
-/-- The interface a reversible predicate implementation must discharge.
+/-- Abstract semantic contract for compute–mark–uncompute.
 `zero` represents the entire initialized workspace, including states, round
-keys, flags, and scratch space. Garbage is allowed after `compute.forward`. -/
+keys, flags, and scratch space. Garbage is allowed after `compute.forward`.
+
+This contract is deliberately permissive: `compute` is any bijection and `flag`
+any Boolean function, so `flag` may itself evaluate the predicate
+(`Examples.abstract_contract_permissive`). It constrains semantics, not
+implementations; circuits discharge `CircuitOracle` instead. -/
 structure PredicateComputation (Key Workspace : Type) (predicate : Key → Bool) where
   zero : Workspace
   compute : Reversible (Key × Workspace)
