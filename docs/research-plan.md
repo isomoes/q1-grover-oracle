@@ -34,11 +34,13 @@ Use known-answer tests for classical and reversible encryption. Exhaustively che
 
 ## Implementation environment
 
-**Decision, 2026-11-11: use Python + Qiskit as the primary quantum circuit implementation environment.** Python hosts circuit generation, scheduling/optimization algorithms, experiment orchestration, and result analysis. Qiskit supplies circuit representation, explicit gate operations, decomposition, and small-instance validation through a selected simulator.
+**Decision, 2026-11-11: use Python + Qiskit as the primary quantum circuit implementation environment.** Python hosts circuit generation, scheduling/optimization algorithms, experiment orchestration, and result analysis.
 
-Maintain a lightweight, auditable resource-accounting and scheduling layer that records qubit allocation/release, quantum dependencies, measurement outcomes and classical feed-forward dependencies. Derive depth and peak width from the same scheduled circuit under explicit gate and latency assumptions. The detailed implementation and validation conventions are in [code/README.md](../code/README.md).
+**Refinement, 2026-11-23: a project-owned circuit IR in Python is the source of truth for circuits and resources; Qiskit is a validation backend.** The IR records gates, qubit allocation/release, measurements, classically controlled operations, and quantum and measurement-to-correction dependencies. A single scheduler over the IR derives full depth, T-depth, and peak width under explicit gate and latency assumptions. Qiskit does not model qubit lifetimes (`num_qubits` counts wires) or measurement/feed-forward latency (`QuantumCircuit.depth()` counts gate layers), so its native metrics are not reported as results.
 
-Use Q# author artifacts to reproduce published baselines and cross-check the Python + Qiskit implementations. Pin the original artifact and toolchain first, then explain any differences introduced by porting. Python, Qiskit, and simulator versions will be selected and locked when the executable environment is initialized; this decision records the stack, not a completed installation or reproduction.
+Validation uses two IR backends: a classical bit-level simulator for basis-state functional checks of reversible circuits, including known-answer tests and workspace restoration on the complete AES oracle; and Qiskit export with a selected simulator for phase-sensitive checks on small instances, including measurement-dependent corrections. The detailed implementation and validation conventions are in [code/README.md](../code/README.md).
+
+Use Q# author artifacts to reproduce published baselines and cross-check the Python + Qiskit implementations. Pin the original artifact and toolchain first (G03's estimates come from the classic QDK trace simulator, whose cost model differs from the modern QDK resource estimator), then explain any differences introduced by porting. Python, Qiskit, and simulator versions will be selected and locked when the executable environment is initialized; this decision records the stack, not a completed installation or reproduction.
 
 ## Baselines and proposed experiments
 
