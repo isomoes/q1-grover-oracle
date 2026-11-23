@@ -1,8 +1,8 @@
 {
   "topic": "Q1 complete Grover key-search oracle optimization, centered on AES-128",
-  "searched_on": "2026-11-11",
-  "cutoff_date": "2026-11-11",
-  "recent_window": {"from": "2024-11-11", "to": "2026-11-11", "includes": "本次定向扩充中的新发表与实质修订；历史先例另行追溯，不代表全领域重新审计"},
+  "searched_on": "2026-11-23",
+  "cutoff_date": "2026-11-23",
+  "recent_window": {"from": "2024-11-23", "to": "2026-11-23", "includes": "最新定向核查仅关注清理与 pebbling；历史方法先例另行追溯。11 月 11 日路线比较保留其原窗口，不代表全部论文重新审计。"},
   "core_graph_scope": {"searched_on": "2026-09-27", "cutoff_date": "2026-09-27", "recent_window": {"from": "2024-09-27", "to": "2026-09-27"}, "paper_ids": ["P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "P10", "P11", "P12", "P13", "P14", "P15", "P16", "P17", "P18", "P19", "P20"], "note": "原 20 篇核心图保留历史覆盖；后续选段阅读和 P21–P28 定向增补见 targeted_updates，不自动刷新全部旧节点的发表状态。"},
   "coverage": {
     "status": "preliminary",
@@ -22,6 +22,19 @@
       "verified_urls": ["https://eprint.iacr.org/2025/1494", "https://eprint.iacr.org/2022/683", "https://eprint.iacr.org/2026/568", "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2025.1582819/full", "https://arxiv.org/html/2503.06097v2", "https://arxiv.org/html/2004.08539v2", "https://arxiv.org/abs/2212.10395v2", "https://arxiv.org/html/2211.15465v1", "https://eprint.iacr.org/2025/1887", "https://arxiv.org/abs/2608.09578v2", "https://arxiv.org/abs/2511.18226v2", "https://api.crossref.org/works/10.1007%2Fs11128-026-05083-7"],
       "assessment": "建议已有指标上的方法改进为主，宽度／测量反馈约束评价为辅；完整 oracle 联合调度仍是待查新、待实验的研究假设。",
       "limitations": ["不是全领域更新；保留原核心图的历史范围", "P03 §3.5、P06 Appendix G 复用本地原文；P21/P22/P23/P25 仅选段全文", "P24/P26/P27/P28 主要为摘要／元数据，P28 数字搜索摘录不作为独立复现", "P14/P15 的 aPaper 与本地 HTTP 下载返回 403；P15 旧全文选段证据沿用但未重审", "NIST PDF 获取失败，仅用官方记录与搜索片段证明已有物理成本先例", "未运行作者代码，未证明新颖性或完整迭代最优"]
+    },
+    {
+      "date": "2026-11-23", "purpose": "为跨轮、双数据链清理选择可检验的数学模型", "synthesis_path": "../synthesis/algebra-aware-cleanup-2026-11-23.md", "added_paper_ids": ["P29"],
+      "queries": [
+        {"source": "aPaper arXiv", "query": "pebbling uncomputation Grover oracle block cipher", "result": "zero_results"},
+        {"source": "aPaper arXiv", "query": "spooky pebbling", "date_from": "2024-01-01", "result": "返回 P26 及线图、树图等工作；这些实例不建立 AES 收益。"},
+        {"source": "aPaper Scholar", "query": "quantum uncomputation XOR linear dependencies reversible pebbling AES shared key schedule", "year_low": 2024, "year_high": 2026, "result": "zero_results"},
+        {"source": "aPaper DBLP", "query": "The role of multiplicative complexity in compiling low T-count oracle circuits", "result": "tool_error"},
+        {"source": "supplementary web search", "query": "reversible pebbling game AES quantum circuit Grover oracle uncomputation schedule", "result": "找到 P29，转 arXiv 原文核对技术范围；Crossref 核对 ICCAD 2019 出版身份与 DOI。"}
+      ],
+      "verified_urls": ["https://arxiv.org/abs/1908.01609v1", "https://arxiv.org/html/1908.01609v1", "https://doi.org/10.1109/ICCAD45719.2019.8942093", "../sources/arxiv_1512.04965v1.pdf", "../sources/iacr_2019_1146_corrected_2023-06-07.pdf", "../sources/fips-197-upd1.pdf"],
+      "assessment": "P02 已按需用 XOR 重建密钥字，P29 已组合线性结构与 pebbling。建议研究在两条数据链实际可用的寄存器版本上选择清理证据，和强原位、缓存及通用调度方法对照。",
+      "limitations": ["从既有路线选切口，非全领域更新；未完成直接覆盖该模型的查新", "本次复核 P02 §§3.2.2–3.2.3、P03 修正版 §§4.5–4.6 和 §6.1、FIPS §5.2/附录 A.1；P06 沿用已有选段记录", "P29 检查预印本选段与出版身份，未逐页比对会议版或运行电路；局部秩命题和门数推导不是整体 AES 改进"]
     }
   ],
   "sources": [
@@ -190,6 +203,12 @@
       "versions": [{"label": "arXiv v1", "date": "2025-11-23", "url": "https://arxiv.org/abs/2511.18226v1", "note": "初始预印本。"}, {"label": "arXiv v2", "date": "2026-05-24", "url": "https://arxiv.org/abs/2511.18226v2", "note": "本次直接核查摘要和版本记录。"}, {"label": "ToSC 2026(2)", "date": "2026-06-11", "url": "https://tosc.iacr.org/index.php/ToSC/article/view/13012", "note": "出版信息和 DOI 经原站搜索结果核对；直取受访问挑战限制，Crossref 查询返回 429。"}],
       "read_level": "abstract", "selection_reason": "2026 线性层结构优化竞争者；证明纯 AES MixColumn 深度 10 并不足以构成新纪录，仍需检查门数与系统效果。",
       "evidence": [{"claim": "循环结构预处理帮助启发式合成线性层", "url": "https://arxiv.org/abs/2511.18226v2", "locator": "Abstract", "support": "作者报告自动合成 AES MixColumn 深度 10，相对其引用的手工结果多两个 CNOT；尚未运行电路或审计最优性。"}, {"claim": "2026 年 ToSC 出版身份", "url": "https://tosc.iacr.org/index.php/ToSC/article/view/13012", "locator": "原站搜索摘录的 Authors / Published；关联 PDF 首页摘录", "support": "Buji Xu、Xiaoming Sun；2026-06-11；2026(2)；DOI 10.46586/tosc.an2i89ylpgf9。107/105 CNOT 只见原文检索片段，不作为复现结果。"}]
+    },
+    {
+      "id": "P29", "title": "The Role of Multiplicative Complexity in Compiling Low T-count Oracle Circuits", "authors": ["Giulia Meuli", "Mathias Soeken", "Earl Campbell", "Martin Roetteler", "Giovanni De Micheli"], "year": 2019, "first_public_date": "2019-08-05", "publication_status": "peer_reviewed", "venue": "2019 IEEE/ACM International Conference on Computer-Aided Design (ICCAD)", "doi": "10.1109/ICCAD45719.2019.8942093", "urls": ["https://arxiv.org/abs/1908.01609v1", "https://doi.org/10.1109/ICCAD45719.2019.8942093"], "bibtex_key": "MeuliEtAl2019Multiplicative", "routes": ["R05"], "roles": ["milestone"],
+      "versions": [{"label": "arXiv v1", "date": "2019-08-05", "url": "https://arxiv.org/html/1908.01609v1", "note": "技术证据版本；arXiv 历史显示单一提交。"}, {"label": "ICCAD 2019", "date": null, "url": "https://doi.org/10.1109/ICCAD45719.2019.8942093", "note": "Crossref 核对出版于 2019 年 11 月，页 1–8；未使用推断的出版日。"}],
+      "read_level": "full_text", "reading_scope": "arXiv v1 §II-C、§III Eq. (9)、§IV、§V-C/Table II 和 §V-D/Fig. 6 的文字；非代码复现。", "selection_reason": "原位 XOR 合成、线性输入整理和空间受限 pebbling 的直接方法先例；比只对照尽早／尽晚清理更有鉴别力。",
+      "evidence": [{"claim": "XAG 线性输入整理与原位 XOR 的 SAT pebbling 已有先例", "url": "https://arxiv.org/html/1908.01609v1", "locator": "§III Eq. (9) / Algorithm 1；§IV Fig. 4–5、Eqs. (12)–(16)", "support": "把 AND 的输入整理为原输入或其他 AND 结果的异或；博弈对原位操作及部分共享输入冲突有明确规则。"}, {"claim": "全 AES 函数综合和 S-box 的 SAT 实验是两种结果", "url": "https://arxiv.org/html/1908.01609v1", "locator": "§II-C Eq. (2)；§V-C/Table II；§V-D/Fig. 6", "support": "Table II 给出 expanded/non-expanded AES 的函数 oracle；§V-D 用 8 位 s8 演示有界辅助位的 pebbling，不是两对数据的完整相位 oracle。"}]
     }
   ],
   "routes": [
@@ -197,7 +216,7 @@
     {"id": "R02", "name": "Nonlinear synthesis", "question": "Which S-box implementations give the best tradeoff after integration and cleanup?", "foundation_ids": ["P02", "P10"], "milestone_ids": ["P11", "P12", "P13"], "recent_ids": ["P05", "P06", "P09", "P21", "P22"], "baseline_ids": ["P12"], "leaders": [{"paper_ids": ["P05", "P06", "P09", "P21", "P22"], "status": "candidate", "criterion": "T-depth, width and bounded NCT synthesis under their separate domains", "conditions": "Preserve in-place/out-of-place contract, ancilla and measurement rules; P09's Keccak result is not AES", "reason": "新增 P21/P22 的 TDW/FDW 与复合域候选；仍无全局组件或完整 oracle 最优，定理域与具体分解需核查。", "evidence": []}]},
     {"id": "R03", "name": "Linear-layer synthesis and scheduling", "question": "How much full depth can linear synthesis and compiler-aware scheduling save?", "foundation_ids": ["P17"], "milestone_ids": ["P04", "P13"], "recent_ids": ["P16", "P09", "P28"], "baseline_ids": ["P04"], "leaders": [{"paper_ids": ["P04", "P16", "P28"], "status": "candidate", "criterion": "CNOT depth for AES MixColumns and linear subcircuits", "conditions": "Same binary map, no-ancilla/in-place contract, connectivity, relabeling and scheduler", "reason": "P28 新增循环结构自动合成；深度 10 已有多项作者报告，未在统一调度器下重建或证明最优。P04 的 2024-10 修订属于原核心近期窗，不属于本次滚动窗口。", "evidence": []}]},
     {"id": "R04", "name": "Round and key-schedule co-design", "question": "Which joint schedule best trades peak workspace for encryption and oracle depth?", "foundation_ids": ["P02", "P10"], "milestone_ids": ["P03", "P11", "P12", "P13"], "recent_ids": ["P14", "P06", "P15", "P21", "P22"], "baseline_ids": ["P03", "P13"], "leaders": [{"paper_ids": ["P06", "P14", "P15", "P21", "P22"], "status": "candidate", "criterion": "Separate low-width, low-depth and depth-width Pareto points", "conditions": "Coherent candidate-key schedule; match measurement/decomposition and cost boundary", "reason": "P06/P15 省略比较等成本，P21 有 forward-only 与 forward+adjoint 两类表，P22 的 102800 是加密侧指标；没有完成同口径排名。", "evidence": []}]},
-    {"id": "R05", "name": "Cleanup, comparison and diffusion", "question": "Can local cleanup and multi-control operations be optimized without losing the phase-oracle contract?", "foundation_ids": ["P07", "P03"], "milestone_ids": ["P07"], "recent_ids": ["P19", "P06", "P15", "P26", "P27"], "baseline_ids": ["P07", "P03"], "supplementary_ids": ["P23", "P24", "P25", "P26", "P27"], "leaders": [{"paper_ids": ["P15", "P19"], "status": "candidate", "criterion": "Oracle-aware scheduling and few-ancilla multi-control constructions", "conditions": "P15 computational-basis circuit transformation with unitary global reversal; P19 clean/dirty/conditionally clean distinctions and measurement accounting", "reason": "未在共同约束下复现完整 AES phase oracle 加 diffuser；P23/P24/P26/P27 提供通用清理先例，不据此声称 AES 资源最优。", "evidence": []}]}
+    {"id": "R05", "name": "Cleanup, comparison and diffusion", "question": "Can local cleanup and multi-control operations be optimized without losing the phase-oracle contract?", "foundation_ids": ["P07", "P03"], "milestone_ids": ["P07"], "recent_ids": ["P19", "P06", "P15", "P26", "P27"], "baseline_ids": ["P07", "P03"], "supplementary_ids": ["P23", "P24", "P25", "P26", "P27", "P29"], "leaders": [{"paper_ids": ["P15", "P19"], "status": "candidate", "criterion": "Oracle-aware scheduling and few-ancilla multi-control constructions", "conditions": "P15 computational-basis circuit transformation with unitary global reversal; P19 clean/dirty/conditionally clean distinctions and measurement accounting", "reason": "未在共同约束下复现完整 AES phase oracle 加 diffuser；P23/P24/P26/P27/P29 提供通用清理先例，不据此声称 AES 资源最优。", "evidence": []}]}
   ],
   "edges": [
     {"source": "P01", "target": "P02", "type": "uses", "basis": "documented", "explanation": "AES key search instantiates Grover search.", "evidence": [{"claim": "Uses Grover", "url": "https://arxiv.org/abs/1512.04965", "locator": "Abstract", "support": "Explicitly implements Grover's algorithm for AES key extraction."}]},

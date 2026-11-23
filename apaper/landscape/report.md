@@ -2,6 +2,12 @@
 
 **Original core search and cutoff:** 2026-09-27. **Core recent window:** 2024-09-27–2026-09-27. **Core coverage:** preliminary; 20 papers, five overlapping routes. Later targeted updates follow.
 
+## 2026-11-23：R04 × R05 的第一个数学问题
+
+[选题推导与判别实验](../synthesis/algebra-aware-cleanup-2026-11-23.md)：固定 AES 组件，考察两条数据链共享轮密钥时，能否从仍存活的线性组合便宜地清零或重建中间字，并在给定宽度下缩短完整迭代。P02 §3.2.2 已有按需 XOR 重建；P03 修正版 §6.1/Fig. 8 已有双分支基线。
+
+新增方法先例 **P29 — The Role of Multiplicative Complexity in Compiling Low T-count Oracle Circuits**（Meuli 等，ICCAD 2019）。[原文](https://arxiv.org/html/1908.01609v1) §III–IV 已给出线性输入整理和原位 XOR 的 SAT pebbling；§V-C/Table II 与 §V-D/Fig. 6 分别是含 AES 的函数综合、8 位 S-box 的 pebbling 实验。前者不含双对比较与相位标记，后者不是全 AES 的精确调度。其方法应作近邻对照，不能把工具的组合本身报作创新。这是针对一个建模选择的定向核查，不改变原核心图或完整迭代最优仍未确定的判断。
+
 ## 2026-11-11：两条选题路线评估（定向更新）
 
 **建议：以已有指标上的方法改进为主，以真实资源约束驱动的评价为辅。** 详见[完整分析与首轮实验门槛](../synthesis/route-assessment-2026-11-11.md)。本次检索截止 2026-11-11、近期窗口 2024-11-11–2026-11-11；新增 P21–P28，保留原 20 篇核心图的历史范围。

@@ -8,9 +8,9 @@ This repository starts from direction **D1** of the [post-quantum symmetric cryp
 
 ## Research question
 
-Can jointly optimizing nonlinear layers, linear layers, key scheduling, comparison, and uncomputation lower the cost of a complete Grover iteration under the same width, depth, gate-set, and success-probability constraints?
+At a fixed logical-qubit budget, how shallow can a complete AES-128 Grover iteration be? As the budget shrinks, which operations must wait or be recomputed, and which delays can a different circuit avoid?
 
-The intended result is a reproducible comparison of complete attack oracles and their depth/width tradeoffs. Candidate improvements include ancilla reuse, reversible scheduling, linear-layer synthesis, and compatible compute/uncompute constructions. These are research hypotheses; novelty and improvements remain to be established.
+The [first study](docs/research-plan.md#bottleneck-study) will compare low-depth and low-width designs using the same two-pair phase oracle contract and the same diffuser. Critical-path traces will guide the choice of method. The target is either a reproducibly shallower iteration at matched resources or a construction with a matching or near-matching depth lower bound in a stated model.
 
 ## Implementation environment
 
@@ -31,9 +31,10 @@ The intended result is a reproducible comparison of complete attack oracles and 
 ## Initial milestones
 
 - [ ] Pin the corrected AES baseline from Jaques et al. and its implementation revision.
-- [ ] Reproduce an AES-128 encryption circuit, then its complete phase oracle and diffuser.
+- [ ] Reproduce the corrected two-pair AES-128 phase-oracle resource point and cost the diffuser separately.
 - [ ] Validate encryption, phase marking, and workspace cleanup independently.
-- [ ] Compare optimization variants at matched resource constraints.
+- [ ] Normalize the shallow P14 and narrow P06 designs; trace where the complete iteration waits or recomputes as width decreases.
+- [ ] Test a construction or depth bound for the observed bottleneck and report its scope.
 - [ ] Release commands, pinned dependencies, circuits, and measured result tables.
 
 **Status:** research scaffold with a [Lean 4 foundation](theory/README.md) for transcript matching and signed-basis phase-oracle correctness. Concrete AES circuit implementations and benchmark results are pending.

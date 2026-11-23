@@ -37,6 +37,16 @@ Record known-answer checks, exhaustive component checks, phase-sensitive checks 
 
 Record counts by gate family and all classical data, memory, preprocessing, retries, and final verification costs alongside this table. Link raw outputs and document differences from the baseline.
 
+## Width-budget comparison (for scheduling experiments)
+
+Use one row per variant and budget under the same gate and timing model. Include budgets with no schedule found. Give a lower bound only when a proof or certificate covers the stated circuit family and scope.
+
+| Variant / family | Total width budget B | Actual peak width | Phase-oracle full depth | Iteration full depth (achieved) | Iteration lower bound / scope, if known | Limiting operation, wait cause / trace |
+|---|---:|---:|---:|---:|---|---|
+| Pending | Pending | Pending | Pending | Pending | Pending | Pending |
+
+Name the value or wire involved at the first budget where the schedule changes. Link the neighboring-budget schedules and the matched run with the proposed change disabled. Explain whether the change shortens the complete iteration or only moves work off one critical path.
+
 ## Interpretation
 
 State the supported conclusion, uncertainty, failed variants, and remaining checks. Distinguish literature-reported counts from measurements made here.
