@@ -36,6 +36,10 @@ Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, 
 
 ## Workspace conventions
 
+To resume a research choice, start with the dated **决策摘要** in the synthesis notes above: it records the recommendation, decisive evidence, unresolved assumption, and condition for reconsideration.
+
+**Manuscript evidence:** [2026-11-25 candidate claims for the manuscript scaffold](evidence/2026-11-25-manuscript.md) — one author-reported comparison point, one local derivation, and one open question. Use the pinned revision when checking a claim.
+
 The shared directory and identity rules are in the [research workspace specification](../.agents/skills/research-landscape/references/workspace.md). Use [research-landscape](../.agents/skills/research-landscape/SKILL.md) for breadth and [paper-reading](../.agents/skills/paper-reading/SKILL.md) for interactive depth and selected notes.
 
 The previous `research-landscape/q1-grover-oracle/` outputs were moved into `landscape/`. Paper IDs, bibliography keys, search dates, and scholarly assessments were retained; relative source links were adjusted.

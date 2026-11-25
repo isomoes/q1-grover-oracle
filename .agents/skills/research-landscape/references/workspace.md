@@ -4,7 +4,7 @@ This is the common storage contract for `research-landscape` and `paper-reading`
 
 ## Resolve the Root
 
-1. Honor the user's explicit workspace. Reuse an existing workspace root when the supplied file is inside its `landscape/`, `papers/`, or shared `sources/` directory.
+1. Honor the user's explicit workspace. Reuse an existing workspace root when the supplied file is inside its `landscape/`, `papers/`, `sources/`, `synthesis/`, or `evidence/` directory.
 2. Otherwise use `apaper/`, relative to the project root. One project covers one research direction, so do not add a topic/slug layer or ask the user to choose one. Inspect existing outputs before creating the workspace.
 3. In an older `research-landscape/<topic-slug>/` or `research/<topic-slug>/` layout, read the existing files first. On a requested migration, move the landscape deliverables to `apaper/landscape/` and existing reading records, sources, intermediates, and synthesis to the corresponding directories under `apaper/`. Fix inbound and outbound relative links (including JSON source URLs), and preserve IDs and user edits. Do not merge conflicting destination files blindly.
 4. If migration is not requested, reuse the legacy root: keep map files in their existing location (at the root or in `landscape/`) and use `papers/` directly under that root. Record this layout in the workspace README and use actual paths in links. Do not create a duplicate map in the new default location.
@@ -25,7 +25,8 @@ apaper/
 │       ├── reading.md             # Sources, inspected sections, context, progress, questions
 │       ├── notes.md               # User-selected knowledge; created on first save
 │       └── work/                  # Local extractions, page images, scratch; Git-ignored
-└── synthesis/                     # Optional cross-paper comparisons and concepts
+├── synthesis/                     # Cross-paper comparisons and dated decisions
+└── evidence/                      # Dated manuscript claim snapshots, when needed
 ```
 
 Create directories and files as needed, not an empty folder tree for every candidate paper. All retained task intermediates stay under the same workspace root: paper-specific work under `papers/<id>/work/`, map-specific work under `landscape/work/`. When a tool requires temporary storage elsewhere, copy useful outputs back and record the retained path; do not leave durable notes pointing at transient files or remote-only download paths.
@@ -63,3 +64,25 @@ Maintain one README entry for each paper actually started, linking its reading r
 Use relative paths from the containing Markdown or JSON file. For references to another project, include its workspace path with the paper ID. Add `synthesis/` only when a cross-paper task needs it, and link conclusions back to per-paper sources and note IDs. Future experiments can live in the project's existing experiment area and be linked rather than duplicated.
 
 During migration, check local links and compare IDs, source inventories, and bibliography keys before and after. If all three map deliverables exist, run the landscape validator against their directory; for a registry-only workspace, use the checks in `output.md`. Verify structural continuity separately from scientific correctness.
+
+## Resume a synthesis decision
+
+When a synthesis recommends a direction, put four short fields near the top of the dated note:
+
+- **Decision:** What was recommended, adopted, deferred, or stopped? Attribute a recommendation as such.
+- **Decisive evidence:** Link the source and locator or local reasoning that favors this choice over its alternative.
+- **Unresolved assumption:** What must hold for the choice to remain useful?
+- **Reopen if:** Name an observable result, correction, or change of conditions that would alter the choice.
+
+Index the note by date and decision in the workspace README. When resuming, check the latest linked decision and whether its trigger has occurred. If the decision changes, append a dated amendment or link a successor; keep the earlier rationale. A descriptive synthesis or an ordinary reading question needs no decision block.
+
+## Freeze evidence for manuscript claims
+
+When preparing a manuscript handoff or checking a draft, create `evidence/YYYY-MM-DD-<scope>.md` and link it from the workspace README. State the manuscript path and revision, sections covered, and whether entries are in the draft or only candidates. Give each main claim a stable ID and record its exact scoped wording, manuscript location (or intended section), evidence label, and locator:
+
+- **Author-reported:** Paper ID, exact source version, and section/table/theorem; state material conditions.
+- **Derived here:** Versioned local derivation and exact passage, including its assumptions. Cite any paper inputs separately.
+- **Reproduced here:** Actual result artifact, run/record locator, and code revision; a plan or inspected code does not qualify.
+- **Open:** Identify the missing evidence; use only as a question or hypothesis.
+
+Pin local evidence with a commit plus repository path and locator, or a retained immutable copy with checksum. A relative link aids navigation but does not freeze content. Record versioned external sources directly. Split claims with different evidence labels. Check that pinned artifacts resolve and support the wording. On revision create a successor snapshot referencing the previous one, reuse IDs for the same propositions, and identify changed or withdrawn wording; do not silently refresh an old snapshot.

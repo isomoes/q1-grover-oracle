@@ -73,6 +73,8 @@ Do not automatically promote component-level improvements to whole-system result
 
 ## 6. Deliver and Review
 
+When a comparison becomes a research-direction recommendation, record the decision and reopening condition using the [shared workspace conventions](references/workspace.md#resume-a-synthesis-decision). When handing conclusions to a manuscript, [freeze the evidence for each claim](references/workspace.md#freeze-evidence-for-manuscript-claims).
+
 Read `references/output.md` and follow the shared workspace contract in `references/workspace.md`. Default to `apaper/landscape/` for the three map files; honor explicit paths and legacy workspaces. Read existing outputs before updating them incrementally, preserving stable IDs, reading links, and user annotations. Keep retained search logs and scratch material in the map's Git-ignored `work/` directory; keep durable search coverage and evidence in the tracked registry and report.
 
 Deliver:

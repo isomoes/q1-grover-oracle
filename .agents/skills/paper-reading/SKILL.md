@@ -84,6 +84,8 @@ After saving, say briefly what was saved and give the file path and note ID. Avo
 
 ## 6. Close or Resume Cleanly
 
+If the reader requests a cross-paper decision or manuscript handoff, use the shared [decision record](../research-landscape/references/workspace.md#resume-a-synthesis-decision) or [claim snapshot](../research-landscape/references/workspace.md#freeze-evidence-for-manuscript-claims). Link existing selected notes rather than treating a handoff as a new reader selection.
+
 Update `reading.md` and the workspace README's reading index when the question, source coverage, or saved notes change meaningfully. Update the registry only for new papers, identity/version corrections, reading links, or changed landscape evidence or reading level. No next question is required. When resuming, continue a reader-raised unresolved question only if the current request calls for it; otherwise await their chosen topic.
 
 When correcting older assistant-led records, remove assistant-invented question queues and lesson plans from active records and navigation. Preserve selected notes and user-authored text; where their provenance is uncertain, retain them as historical material rather than promoting them to current priorities. Keep verified source coverage and factual caveats. Do not silently turn past assistant explanations into the reader's understanding.
