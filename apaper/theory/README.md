@@ -4,8 +4,12 @@ Foundations for a Q1 Grover key-search attack on AES-128. This is a Lean 4 libra
 covering the transcript predicate, a gate-level phase-oracle contract, and gate counts.
 
 Start with [the mathematical model and proof roadmap](foundation.md). The
-[research plan](../docs/research-plan.md) defines the experiment and resource
+[research plan](../../docs/research-plan.md) defines the experiment and resource
 accounting requirements.
+
+## From a research question to an experiment
+
+When a question depends on a theoretical prediction, use the [experiment skill](../../.agents/skills/research-experiment/SKILL.md) to identify the smallest model that expresses it. Keep reusable abstractions here; cite the definition or theorem in the [experiment record](../result/template.md) and identify the output that tests its prediction. Empirical comparisons, reproductions, and exploratory measurements can start directly from a protocol. An observation on one instance is not a proof for all instances.
 
 ## Build
 
@@ -56,7 +60,7 @@ probability remain proof targets.
 
 ## Scope relative to the circuit IR
 
-The project circuit IR in `code/` is the source of truth for resources. The Lean gate
+The project circuit IR in `apaper/code/` is the source of truth for resources. The Lean gate
 layer is a deliberately smaller fragment of it: fixed wires, NCT and `Z` gates only. It
 doesn't yet model the following, though the project's cleanup-schedule work depends on
 them:
@@ -81,7 +85,7 @@ Planned extension, in order:
 
 - **Bit order.** Wire `i` is bit `i` of `BitVec n` (`getLsbD i`). Key wires are
   `0…127` and workspace wires follow (`cleanInput`). Fix the FIPS 197 byte → state →
-  bit map once, record it here, and match the IR's ordering (see `code/README.md`).
+  bit map once, record it here, and match the IR's ordering (see `apaper/code/README.md`).
   A mismatch here is the most likely source of a silent error.
 - **Known-answer tests.** `decide` on 128-bit values over ten rounds is likely too slow
   in the kernel. Prefer `bv_decide`, or `rfl`/`decide` on definitions that reduce through

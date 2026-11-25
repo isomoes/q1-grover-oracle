@@ -1,11 +1,28 @@
 # Experiment record
 
-Copy this file to a named experiment directory when beginning an experiment. Replace every pending field; this template is not a result.
+Copy this file to a named experiment directory when beginning an experiment. Keep the fields relevant to the question; this template is not a result.
+
+## Theory model (only for a model-driven question; otherwise omit)
+
+- Concrete question → abstract statement:
+- Theory note or declaration and locator; assumptions, scope, and excluded effects:
+- Small instance or boundary case; what is proved versus predicted:
+- Model input → test input; invariant → validity check; observable → output field:
+- Competing prediction or counterexample the measurement could distinguish:
+
+## Protocol (record before running)
+
+- Originating question or synthesis decision:
+- Experiment entry point (repository-relative path under `apaper/code/`):
+- Cases and selection rationale; baseline and fixed conditions if comparing:
+- Primary observable, units, and validity control:
+- Instances/seeds, budget, and stopping rule; threshold or tolerance if testing a claim:
+- Dated amendments after observing data (if any):
 
 | Field | Value |
 |---|---|
 | Experiment ID / date | Pending |
-| Research hypothesis | Pending |
+| Research question or hypothesis | Pending |
 | Cipher / specification / rounds / key and block sizes | Pending |
 | Q1 target interface and classical data acquisition | Pending |
 | Pair count / transcript generation seed | Pending |
@@ -20,7 +37,7 @@ Copy this file to a named experiment directory when beginning an experiment. Rep
 | Gate durations / measurement and feed-forward latency / time units | Pending |
 | M assumption / false-key policy / target success probability | Pending |
 | Depth cap / parallel processors / partition policy | Pending |
-| Reproduction and verification commands | Pending |
+| Reproduction and verification commands, including working directory | Pending |
 
 ## Correctness evidence
 
@@ -48,5 +65,9 @@ Use one row per variant and budget under the same gate and timing model. Include
 Name the value or wire involved at the first budget where the schedule changes. Link the neighboring-budget schedules and the matched run with the proposed change disabled. Explain whether the change shortens the complete iteration or only moves work off one critical path.
 
 ## Interpretation
+
+For exploration, report the pattern and exceptions within the sampled cases. For comparison or reproduction, report the difference from the baseline or reference. For a model test, compare with the prediction under its assumptions. Separate explanations suggested after the run from claims the run actually tested.
+
+Link each attempt's command, exit status, and raw output; identify the calculation behind the reported comparison. State whether the protocol was completed, blocked, or invalid before interpreting the hypothesis.
 
 State the supported conclusion, uncertainty, failed variants, and remaining checks. Distinguish literature-reported counts from measurements made here.

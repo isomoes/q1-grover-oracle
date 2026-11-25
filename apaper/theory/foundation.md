@@ -75,7 +75,7 @@ permutation. It makes no claim about AES key collisions.
 
 For concrete AES data, uniqueness needs its own evidence or assumption. Any
 ideal-cipher estimate for extra matching keys must be labeled as a probabilistic
-approximation, as required by the [research plan](../docs/research-plan.md).
+approximation, as required by the [research plan](../../docs/research-plan.md).
 
 ## 3. Complete phase-oracle contract
 
@@ -168,7 +168,7 @@ $$
 $$
 
 This is the standard Grover target statement, recorded in the research plan
-and [reference G01](../docs/reference.md); it is not yet proved in this Lean
+and [reference G01](../../docs/reference.md); it is not yet proved in this Lean
 library. The approximation $j\approx(\pi/4)\sqrt{N/M}$ assumes known $M$ in
 the small-$M$ regime. Unknown $M$, iteration rounding, retries, and any
 additional verification data need explicit treatment in the attack model.

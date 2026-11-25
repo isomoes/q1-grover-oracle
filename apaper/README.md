@@ -1,6 +1,6 @@
 # Q1 Grover Oracle Research Workspace
 
-Keep the field map, individual-paper reading materials, and later cross-paper synthesis together in `apaper/`. Each project covers one research direction, so there is no topic subdirectory.
+Keep the field map, paper reading records, synthesis, models, experiment code, and results together in `apaper/`. Each project covers one research direction, so there is no topic subdirectory.
 
 ## Landscape
 
@@ -39,6 +39,8 @@ Create `papers/<paper-id>/` when reading begins. Keep paper identity, versions, 
 To resume a research choice, start with the dated **决策摘要** in the synthesis notes above: it records the recommendation, decisive evidence, unresolved assumption, and condition for reconsideration.
 
 **Manuscript evidence:** [2026-11-25 candidate claims for the manuscript scaffold](evidence/2026-11-25-manuscript.md) — one author-reported comparison point, one local derivation, and one open question. Use the pinned revision when checking a claim.
+
+**Experiments:** Use [research-experiment](../.agents/skills/research-experiment/SKILL.md) to turn a question into a bounded test. Start in [theory/](theory/README.md) when testing a model's prediction. For benchmarks, reproductions, or exploration, start directly with the [experiment protocol](result/template.md). Keep implementations in [code/](code/README.md) and run records in [result/](result/). Link the result to the synthesis decision it informs, when applicable.
 
 The shared directory and identity rules are in the [research workspace specification](../.agents/skills/research-landscape/references/workspace.md). Use [research-landscape](../.agents/skills/research-landscape/SKILL.md) for breadth and [paper-reading](../.agents/skills/paper-reading/SKILL.md) for interactive depth and selected notes.
 

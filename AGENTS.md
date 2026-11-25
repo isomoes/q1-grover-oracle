@@ -14,10 +14,10 @@ Read the linked documents when relevant to the task; do not load everything upfr
 | `apaper/landscape/` | [Field map and comparisons](apaper/landscape/report.md), [shared paper registry](apaper/landscape/papers.json), and bibliography. |
 | `apaper/papers/` | Per-paper reading records and selected notes, organized by stable paper ID. |
 | `apaper/sources/` | Shared original papers and supporting sources. |
-| `theory/` | [Theoretical development and Lean 4 formalization](theory/README.md). |
-| `code/` | [Circuit implementations and experiment code](code/README.md). |
+| `apaper/theory/` | [Theoretical development and Lean 4 formalization](apaper/theory/README.md). |
+| `apaper/code/` | [Circuit implementations and experiment code](apaper/code/README.md). |
 | `tex/` | IACR conference manuscript (`index.tex`, Springer LNCS `llncs` + `splncs04`); build with `latexmk` inside `tex/`. |
-| `result/` | Experiment records and artifacts; use the [experiment template](result/template.md). |
+| `apaper/result/` | Experiment records and artifacts; follow [research-experiment](.agents/skills/research-experiment/SKILL.md) and use the [experiment template](apaper/result/template.md). |
 | `.agents/skills/` | Local skill instructions and supporting guides. |
 | `opencode.json` | [Project agent configuration](opencode.json). |
 

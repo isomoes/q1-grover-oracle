@@ -14,7 +14,7 @@ The [first study](docs/research-plan.md#bottleneck-study) will compare low-depth
 
 ## Implementation environment
 
-**Python + Qiskit** is the selected environment for quantum circuit implementation and optimization experiments (decision: 2026-11-11). Project-specific resource accounting tracks ancilla lifetimes, scheduling, and measurement/feed-forward dependencies. Q# author artifacts serve as reproduction and cross-check baselines. See the [implementation guide](code/README.md) and [research plan](docs/research-plan.md#implementation-environment).
+**Python + Qiskit** is the selected environment for quantum circuit implementation and optimization experiments (decision: 2026-11-11). Project-specific resource accounting tracks ancilla lifetimes, scheduling, and measurement/feed-forward dependencies. Q# author artifacts serve as reproduction and cross-check baselines. See the [implementation guide](apaper/code/README.md) and [research plan](docs/research-plan.md#implementation-environment).
 
 ## Start here
 
@@ -24,9 +24,9 @@ The [first study](docs/research-plan.md#bottleneck-study) will compare low-depth
 - [Research landscape: 20 core papers and five routes](apaper/landscape/report.md) (searched 2026-09-27; preliminary coverage)
 - [Papers we have read (issue #1)](https://github.com/isomoes/q1-grover-oracle/issues/1)
 - [BibTeX bibliography](docs/references.bib)
-- [Experiment record template](result/template.md)
-- [Theory and Lean 4 formalization](theory/README.md)
-- [Experiment code](code/README.md)
+- [Experiment record template](apaper/result/template.md)
+- [Theory and Lean 4 formalization](apaper/theory/README.md)
+- [Experiment code](apaper/code/README.md)
 
 ## Initial milestones
 
@@ -37,7 +37,7 @@ The [first study](docs/research-plan.md#bottleneck-study) will compare low-depth
 - [ ] Test a construction or depth bound for the observed bottleneck and report its scope.
 - [ ] Release commands, pinned dependencies, circuits, and measured result tables.
 
-**Status:** research scaffold with a [Lean 4 foundation](theory/README.md) for transcript matching and signed-basis phase-oracle correctness. Concrete AES circuit implementations and benchmark results are pending.
+**Status:** research scaffold with a [Lean 4 foundation](apaper/theory/README.md) for transcript matching and signed-basis phase-oracle correctness. Concrete AES circuit implementations and benchmark results are pending.
 
 The companion project, [Quantum Symmetric Distinguishers](https://github.com/isomoes/quantum-symmetric-distinguishers), studies structural distinguishers and the assumptions needed to turn them into attacks.
 

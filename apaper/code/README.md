@@ -5,7 +5,7 @@ Circuit implementations, experiment scripts, and resource-analysis code.
 ## Implementation environment
 
 **Decision, 2026-11-11: Python + Qiskit is the primary environment for quantum circuit implementation.**
-**Refinement, 2026-11-23: a project-owned circuit IR is the source of truth for circuits and resources; Qiskit is a validation backend** (see the [research plan](../docs/research-plan.md#implementation-environment)).
+**Refinement, 2026-11-23: a project-owned circuit IR is the source of truth for circuits and resources; Qiskit is a validation backend** (see the [research plan](../../docs/research-plan.md#implementation-environment)).
 
 | Component | Responsibility |
 |---|---|
@@ -23,7 +23,7 @@ The stack is selected; executable setup and dependency versions are pending. At 
 
 ## Resource-accounting conventions
 
-Follow the [research plan](../docs/research-plan.md#resource-accounting), with these implementation requirements:
+Follow the [research plan](../../docs/research-plan.md#resource-accounting), with these implementation requirements:
 
 - Report resources computed from the IR schedule only. Do not report Qiskit's `num_qubits` (wire count) or `QuantumCircuit.depth()` (gate layers, no latency) as width or depth results.
 - Track logical qubit lifetimes and the actual reuse schedule through explicit `alloc`/`free` in the IR.
@@ -39,9 +39,8 @@ Follow the [research plan](../docs/research-plan.md#resource-accounting), with t
 3. Verify component outputs and restored workspace with the classical reversible simulator; use Qiskit export on small quantum instances to check relative phases. For measurement-assisted cleanup, also check the outcome-dependent corrections.
 4. Extend to AES known-answer checks on the complete oracle with the classical reversible simulator, and to complete-oracle resource accounting from the IR schedule. Keep functional checks, phase-sensitive checks, and resource estimation identifiable in experiment records.
 
-Full AES state-vector simulation is not the validation strategy. Basis-state classical simulation covers full-size functional correctness; phase correctness is checked on components and small instances, following the [research plan](../docs/research-plan.md#initial-implementation-scope).
+Full AES state-vector simulation is not the validation strategy. Basis-state classical simulation covers full-size functional correctness; phase correctness is checked on components and small instances, following the [research plan](../../docs/research-plan.md#initial-implementation-scope).
 
 ## Experiment records
 
-Keep experiment records in [result/](../result/), using its
-[template](../result/template.md) to document commands and results.
+Keep implementations, run scripts, and analysis scripts under `apaper/code/`. Store each run's protocol, raw outputs, and interpretation in [result/](../result/). In the [experiment record](../result/template.md), identify the `apaper/code/` entry point and give the exact command and working directory.
